@@ -1,0 +1,10 @@
+.vscode
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+.env
+db.sqlite3
