@@ -4,9 +4,7 @@
 
 - [Project Setup](#project-setup)
   - [Backend](#backend-env-setup)
-
   - [Frontend](#frontend-env-setup)
-
 - [Development](#development)
   - [Branches](#branches)
 - [Deploying](#deploying)
