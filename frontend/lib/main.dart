@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nucleus/src/main_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Text('Hello World'),
-        ],
+    MainButton(title: 'Click me'),
+        ],),
     );
   }
 
