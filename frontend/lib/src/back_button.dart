@@ -30,7 +30,7 @@ class _CustomBackButtonState extends State<CustomBackButton> {
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: BorderRadius.circular(40.0),
           gradient: LinearGradient(
             colors: [
               Colors.blue[900]!,
@@ -40,13 +40,13 @@ class _CustomBackButtonState extends State<CustomBackButton> {
             end: Alignment.centerRight,
           ),
         ),
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(7),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
               widget.title,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ],
         ),
