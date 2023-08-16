@@ -33,7 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text('Hello World!'),
+      body: Column(
+        children: <Widget>[
+          Text('Hello World'),
+        ],
     );
   }
 
