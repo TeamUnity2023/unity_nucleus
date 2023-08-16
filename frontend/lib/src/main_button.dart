@@ -9,11 +9,13 @@ class MainButton extends StatefulWidget {
 }
 
 class _MainButtonState extends State<MainButton> {
-  final bool _isPressed = false;
+  late bool _isPressed = false;
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: (){_isPressed != _isPressed;},
-    style: ButtonStyle(
+    return TextButton(onPressed: (){setState(() {
+      _isPressed = !_isPressed;
+    });},
+    style: ButtonStyle( elevation: _isPressed ? MaterialStateProperty.all<double>(0.0) : MaterialStateProperty.all<double>(10.0),
       backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurple),
       foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
