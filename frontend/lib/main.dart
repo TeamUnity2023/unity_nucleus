@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nucleus/src/main_button.dart';
-import 'package:nucleus/src/back_button.dart';
+
+import 'Pages/login_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -34,13 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: <Widget>[
-          Text('Hello World'), 
-          MainButton(title: 'Click me'),
-          CustomBackButton(title: '   <   '),
-        ],
+    return const SafeArea(
+      child: Scaffold(
+        body: LoginPage(),
+
       ),
     );
   }
