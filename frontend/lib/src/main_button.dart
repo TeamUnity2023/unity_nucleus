@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class MainButton extends StatefulWidget {
   final String title;
   final Color buttonColor;
-  final Function whenPressed;
+  final VoidCallback whenPressed;
 
-  const MainButton({super.key, required this.title, this.buttonColor = Colors.deepPurple, required this.whenPressed});
+   const MainButton({super.key, required this.title, this.buttonColor = Colors.deepPurple, required this.whenPressed});
 
   @override
   State<MainButton> createState() => _MainButtonState();
