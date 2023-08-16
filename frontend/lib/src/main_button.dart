@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MainButton extends StatefulWidget {
   final String title;
 
-   const MainButton({required this.title,super.key});
+  const MainButton({required this.title,super.key});
   @override
   State<MainButton> createState() => _MainButtonState();
 }
