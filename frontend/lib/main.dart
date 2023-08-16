@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Text('Hello World'), 
           MainButton(title: 'Click me'),
-          CustomBackButton(title: '<'),
+          CustomBackButton(title: '    <    '),
         ],
       ),
     );
