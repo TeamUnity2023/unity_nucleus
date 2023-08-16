@@ -3,44 +3,57 @@ import 'package:flutter/material.dart';
 class MainButton extends StatefulWidget {
   final String title;
   final Color buttonColor;
+  final Function whenPressed;
 
-  const MainButton(
-      {required this.title, super.key, this.buttonColor = Colors.deepPurple});
+  const MainButton({super.key, required this.title, this.buttonColor = Colors.deepPurple, required this.whenPressed});
 
   @override
   State<MainButton> createState() => _MainButtonState();
 }
 
 class _MainButtonState extends State<MainButton> {
-  late bool _isPressed = false;
+  late bool _isPressed;
+
+  @override
+  void initState() {
+    super.initState();
+    _isPressed = false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          _isPressed = !_isPressed;
-        });
-      },
-      style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all<Size>(const Size(340, 50)),
-        elevation: _isPressed
-            ? MaterialStateProperty.all<double>(0.0)
-            : MaterialStateProperty.all<double>(10.0),
-        backgroundColor: MaterialStateProperty.all<Color>(_isPressed ? Colors.deepPurple.shade300 : Colors.deepPurple),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            side: BorderSide(color: widget.buttonColor),
+    return Material(
+      color: _isPressed ? Colors.deepPurple.shade300 : widget.buttonColor,
+      borderRadius: BorderRadius.circular(25.0),
+      child: InkWell(
+        onTapDown: (_) {
+          setState(() {
+            _isPressed = true;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            _isPressed = false;
+          });
+        },
+        onTap: () {
+          setState(() {
+            _isPressed = false;
+          });
+          // Add your button's pressed logic comes here.
+          widget.whenPressed();
+        },
+        borderRadius: BorderRadius.circular(25.0),
+        child: Container( height: 50,width: 340,
+          constraints: const BoxConstraints(minWidth: 340, minHeight: 50),
+          padding: const EdgeInsets.all(4.0),
+          alignment: Alignment.center,
+          child: Text(
+            widget.title,
+            style:const  TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Text(widget.title,
-            style: const TextStyle(fontSize: 20)
-      ),
-    ),
     );
   }
 }

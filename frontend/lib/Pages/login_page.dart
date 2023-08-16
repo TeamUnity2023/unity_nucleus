@@ -10,11 +10,6 @@ class LoginPage extends StatelessWidget {
       backgroundColor: const Color.fromRGBO(7, 7, 15, 1),
       body: Stack(
         children: [
-          const Align(
-              alignment: Alignment.bottomCenter,
-              child: MainButton(
-                title: 'Book a journey!',
-              )),
           const Positioned(
             top: -180,
             left: -150,
@@ -53,6 +48,11 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
+          const Align(
+              alignment: Alignment.bottomCenter,
+              child: MainButton(
+                title: 'Book a journey!',
+              )),
         ],
       ),
     );
