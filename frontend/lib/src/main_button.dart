@@ -6,6 +6,7 @@ class MainButton extends StatefulWidget {
 
   const MainButton(
       {required this.title, super.key, this.buttonColor = Colors.deepPurple});
+
   @override
   State<MainButton> createState() => _MainButtonState();
 }
