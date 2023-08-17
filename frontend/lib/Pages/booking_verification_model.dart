@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:nucleus/src/main_button.dart';
 import 'package:nucleus/src/back_button.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class VerificationScreen extends StatefulWidget {
-
   const VerificationScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +22,7 @@ class _VerificationScreen extends State<VerificationScreen> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
@@ -46,6 +44,7 @@ class _VerificationScreen extends State<VerificationScreen> {
     _timer.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +73,8 @@ class _VerificationScreen extends State<VerificationScreen> {
               ),
               width: 250,
               blur: 20,
-              border: 2, borderRadius: 20,
+              border: 2,
+              borderRadius: 20,
               borderGradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -99,7 +99,8 @@ class _VerificationScreen extends State<VerificationScreen> {
               ),
               width: 250,
               blur: 20,
-              border: 2, borderRadius: 20,
+              border: 2,
+              borderRadius: 20,
               borderGradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -107,6 +108,47 @@ class _VerificationScreen extends State<VerificationScreen> {
                   const Color(0xFFffffff).withOpacity(0.2),
                   const Color(0xFFFFFFFF).withOpacity(0.2),
                 ],
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 35),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 18,
+                    ),
+                    Expanded(
+                        child: Text(
+                      'Earth',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    )),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                        child: Text(
+                      'Population :',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    )),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Expanded(
+                        child: Text(
+                      'Cost :',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    )),
+                  ],
+                ),
               ),
             ),
           ),
@@ -150,17 +192,40 @@ class _VerificationScreen extends State<VerificationScreen> {
           ),
           //add timer clock of format mm:ss with working countdown from 2 minutes
           Positioned(
-            top: 620, 
+            top: 620,
             left: 170,
             child: Text(
-            _formatTime(_remainingSeconds),
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-            ),
+              _formatTime(_remainingSeconds),
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ),
+          Positioned(
+            top: 650,
+            left: 70,
+            right: 70,
+            child: MainButton(
+              whenPressed: () {
+                /*Instead pass what needs to be done*/
+              },
+              title: 'Verify',
+            ),
+          ),
+          const Positioned(
+            top: 710,
+            left: 150,
+            child: Text(
+              'Resend OTP',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          )
         ],
       ),
     );
