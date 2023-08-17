@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nucleus/src/main_button.dart';
 import 'package:nucleus/src/back_button.dart';
@@ -12,7 +14,38 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreen extends State<VerificationScreen> {
-  
+  late Timer _timer;
+  int _remainingSeconds = 120;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+        } else {
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+  String _formatTime(int seconds) {
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds % 60;
+    return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,10 +149,18 @@ class _VerificationScreen extends State<VerificationScreen> {
             ),
           ),
           //add timer clock of format mm:ss with working countdown from 2 minutes
-          
-          
-          
-
+          Positioned(
+            top: 620, 
+            left: 170,
+            child: Text(
+            _formatTime(_remainingSeconds),
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+            ),
+            ),
+          ),
         ],
       ),
     );
