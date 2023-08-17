@@ -38,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return const SafeArea(
       child: Scaffold(
         body:VerificationScreen(),
-
       ),
     );
   }

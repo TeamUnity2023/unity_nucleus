@@ -3,9 +3,16 @@ import 'package:nucleus/src/main_button.dart';
 import 'package:nucleus/src/back_button.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-//This is a preview. This will be modularized later via adding parameters so that this can be used easily for any planet.
-class VerificationScreen extends StatelessWidget {
+class VerificationScreen extends StatefulWidget {
+
   const VerificationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<VerificationScreen> createState() => _VerificationScreen();
+}
+
+class _VerificationScreen extends State<VerificationScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +29,7 @@ class VerificationScreen extends StatelessWidget {
           ),
           Positioned(
             top: 70,
-            left: 70, 
+            left: 70,
             right: 70,
             child: GlassmorphicContainer(
               height: 400,
@@ -34,7 +41,7 @@ class VerificationScreen extends StatelessWidget {
               ),
               width: 250,
               blur: 20,
-              border: 2,
+              border: 2, borderRadius: 20,
               borderGradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -43,8 +50,31 @@ class VerificationScreen extends StatelessWidget {
                   const Color(0xFFFFFFFF).withOpacity(0.2),
                 ],
               ),
-              borderRadius: 20,
-              
+            ),
+          ),
+          Positioned(
+            top: 270,
+            left: 70,
+            right: 70,
+            child: GlassmorphicContainer(
+              height: 200,
+              linearGradient: LinearGradient(
+                colors: [
+                  const Color(0xFFffffff).withOpacity(0.1),
+                  const Color(0xFFFFFFFF).withOpacity(0.05),
+                ],
+              ),
+              width: 250,
+              blur: 20,
+              border: 2, borderRadius: 20,
+              borderGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFFffffff).withOpacity(0.2),
+                  const Color(0xFFFFFFFF).withOpacity(0.2),
+                ],
+              ),
             ),
           ),
           const Positioned(
@@ -55,6 +85,41 @@ class VerificationScreen extends StatelessWidget {
               image: AssetImage('assets/images/earth.png'),
             ),
           ),
+          //text saying enter otp. text should be white and bold
+          const Positioned(
+            top: 500,
+            left: 120,
+            right: 120,
+            child: Text(
+              'Enter OTP',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const Positioned(
+            top: 550,
+            left: 70,
+            right: 70,
+            child: TextField(
+              decoration: InputDecoration(
+                fillColor: Colors.grey,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          //add timer clock of format mm:ss with working countdown from 2 minutes
+          
+          
+          
+
         ],
       ),
     );
