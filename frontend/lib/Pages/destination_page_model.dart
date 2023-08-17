@@ -95,7 +95,7 @@ class PlanetShowcase extends StatelessWidget {
                     child: const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
-                        '''The Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 29.2% of Earth\'s surface is land consisting of continents and islands.
+                        '''The Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 29.2% of Earth's surface is land consisting of continents and islands.
                         The remaining 70.8% is covered with water, by oceans, and other salt-water bodies, but also by lakes, rivers, and other fresh water, which together constitute the hydrosphere.''',
                         style: TextStyle(
                           color: Colors.white,
