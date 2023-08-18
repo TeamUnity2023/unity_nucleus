@@ -7,42 +7,43 @@ on:
     branches: [ "main" , "CI" ]
 
 jobs:
-  deploy:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Log into Azure VM & setup the VM 
-        run: |
-          # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
-          ssh root@157.245.152.26 
+    - name: Log into Azure VM & setup the VM 
+      run: |
+        # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
+        ssh root@157.245.152.26 
 
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
 
-          # Add SSH key to the agent along with the passphrase
-          echo "$SSH_PASSPHRASE" | ssh-add -
+        # Add SSH key to the agent along with the passphrase
+        echo "$SSH_PASSPHRASE" | ssh-add -
 
-      - name: Install dependencies
-        run: |
-          apt-get update
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        apt-get update
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Change directory to the relevant GIT repository
-        run: |
-          cd ~/unity_nucleus/backend
+    - name: Change directory to the relevant GIT repository
+      run: |
+        cd ~/unity_nucleus/backend
 
-      -name: Git pull with Passphrase
-        run: |
-          git pull
+    -name: Git pull with Passphrase
+      run: |
+        git pull
 
-      - name: Run the django server
-        run: |
-          python3 manage.py runserver 0.0.0.0:8000
-          
+    - name: Run the django server
+      run: |
+        python3 manage.py runserver 0.0.0.0:8000
+        
