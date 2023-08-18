@@ -17,13 +17,16 @@ jobs:
         python -m pip install --upgrade pip
         # pip install -r ~/unity_nucleus/backend/requirements.txt
 
-    - name: Log into Azure VM & setup the VM 
+    - name: Set up SSH key
       run: |
-        # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
-        ssh root@157.245.152.26 
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
 
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: SSH into Azure VM
+      run: |
+        ssh -i ~/.ssh/id_rsa root@157.245.152.26
 
     - name: Set up SSH
       run: |
