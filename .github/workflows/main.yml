@@ -7,11 +7,17 @@ on:
     branches: [ "main" , "CI" ]
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install dependencies
+      run: |
+        apt-get update
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
     - name: Log into Azure VM & setup the VM 
       run: |
         # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
@@ -28,12 +34,6 @@ jobs:
 
         # Add SSH key to the agent along with the passphrase
         echo "$SSH_PASSPHRASE" | ssh-add -
-
-    - name: Install dependencies
-      run: |
-        apt-get update
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
 
     - name: Change directory to the relevant GIT repository
       run: |
