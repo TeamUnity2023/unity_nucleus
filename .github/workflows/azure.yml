@@ -1,0 +1,37 @@
+name: CI/CD pipeline for Django app
+
+on:
+  push:
+    branches: [ "main" , "CI" ]
+  pull_request:
+    branches: [ "main" , "CI" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Log into Azure VM & setup the VM 
+        run: |
+          # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
+          ssh root@157.245.152.26 'cd ~/unity_nucleus/backend && git pull'
+          python3 -m pip install --upgrade pip
+          pip install virtualenv
+
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Activate the Python Virutal Environment
+        run: |
+          virtualenv --python=python3 ~/venv/nucleus
+          source ~/venv/nucleus/bin/activate         
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run the django server
+        run: |
+          python3 manage.py runserver 0.0.0.0:8000
+          
