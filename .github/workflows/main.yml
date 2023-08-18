@@ -24,7 +24,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa_nucleus
         cat ~/.ssh/id_rsa_nucleus
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
-        ssh -i ~/.ssh/id_rsa root@157.245.152.26
+        ssh -i ~/.ssh/id_rsa_nucleus root@157.245.152.26
 
     - name: Set up SSH for Github
       run: |
