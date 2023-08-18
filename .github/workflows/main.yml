@@ -39,7 +39,7 @@ jobs:
       run: |
         cd ~/unity_nucleus/backend
 
-    -name: Git pull with Passphrase
+    - name: Git pull with Passphrase
       run: |
         git pull
 
