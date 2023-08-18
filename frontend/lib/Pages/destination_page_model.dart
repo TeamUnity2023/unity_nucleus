@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nucleus/src/back_button.dart';
 import 'package:nucleus/src/main_button.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
@@ -95,6 +96,13 @@ class PlanetShowcase extends StatelessWidget {
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+            ),
+          ),
+          const Positioned(
+            top: 5,
+            left: 5,
+            child: CustomBackButton(
+              title: '  <  ',
             ),
           ),
           Align(
