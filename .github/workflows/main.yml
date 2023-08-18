@@ -19,7 +19,6 @@ jobs:
 
     - name: Set up SSH key for Azure VM
       run: |
-        ssh -T git@github.com
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa_nucleus
         chmod 600 ~/.ssh/id_rsa_nucleus
@@ -28,6 +27,7 @@ jobs:
         
     - name: SSH into Azure VM
       run: |
+        ssh -T git@github.com
         ssh -i ~/.ssh/id_rsa_nucleus root@157.245.152.26
 
     - name: Set up SSH for Github
