@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
       - name: Log into Azure VM & setup the VM 
         run: |
           # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
