@@ -24,7 +24,7 @@ jobs:
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
 
         # Add SSH key to the agent along with the passphrase
-        echo "$SSH_PASSPHRASE" | ssh-add -
+        echo "" | ssh-add -
         
     - name: SSH into Azure VM
       run: |
