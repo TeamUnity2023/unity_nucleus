@@ -32,6 +32,9 @@ jobs:
         chmod 600 ~/.ssh/id_rsa_nucleus
         cat ~/.ssh/id_rsa_nucleus
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
+
+        # Add SSH key to the agent along with the passphrase
+        echo "$SSH_PASSPHRASE" | ssh-add -
         
     - name: SSH into Azure VM
       run: |
