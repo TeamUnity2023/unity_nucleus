@@ -22,7 +22,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa_nucleus
         chmod 600 ~/.ssh/id_rsa_nucleus
-        cat "$SSH_PRIVATE_KEY"
+        cat ~/.ssh/id_rsa_nucleus
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
 
     - name: SSH into Azure VM
