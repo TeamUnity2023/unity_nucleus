@@ -24,9 +24,6 @@ jobs:
         chmod 600 ~/.ssh/id_rsa_nucleus
         cat ~/.ssh/id_rsa_nucleus
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
-
-    - name: SSH into Azure VM
-      run: |
         ssh -i ~/.ssh/id_rsa root@157.245.152.26
 
     - name: Set up SSH for Github
