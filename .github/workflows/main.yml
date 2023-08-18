@@ -12,27 +12,36 @@ jobs:
 
     steps:
       
-      - name: Log into Azure VM 
+      - name: Log into Azure VM & setup the VM 
         run: |
           # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
-          ssh root@157.245.152.26 'cd ~/unity_nucleus/backend && git pull'
+          ssh root@157.245.152.26 
 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Setup VM
+      - name: Set up SSH
         run: |
-          python3 -m pip install --upgrade pip
-          pip install virtualenv
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-      - name: Activate the Python Virutal Environment
-        run: |
-          virtualenv --python=python3 ~/venv/nucleus
-          source ~/venv/nucleus/bin/activate         
+          # Add SSH key to the agent along with the passphrase
+          echo "$SSH_PASSPHRASE" | ssh-add -
 
       - name: Install dependencies
         run: |
+          apt-get update
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Change directory to the relevant GIT repository
+        run: |
+          cd ~/unity_nucleus/backend
+
+      -name: Git pull with Passphrase
+        run: |
+          git pull
 
       - name: Run the django server
         run: |
