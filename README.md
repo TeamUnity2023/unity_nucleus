@@ -72,7 +72,7 @@ ___
 
 ### Branches
 
-Shall we make the main branch protected?
+The `main` branch is the production branch and is protected.
 ___
 
 ## Deploying
