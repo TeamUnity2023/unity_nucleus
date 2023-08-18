@@ -35,7 +35,6 @@ jobs:
         
     - name: SSH into Azure VM
       run: |
-        ssh -T git@github.com
         ssh -i ~/.ssh/id_rsa_nucleus root@157.245.152.26
 
     - name: Set up SSH for Github
