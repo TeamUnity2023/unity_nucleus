@@ -17,18 +17,19 @@ jobs:
         python -m pip install --upgrade pip
         # pip install -r ~/unity_nucleus/backend/requirements.txt
 
-    - name: Set up SSH key
+    - name: Set up SSH key for Azure VM
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa_nucleus
+        chmod 600 ~/.ssh/id_rsa_nucleus
+        cat "$SSH_PRIVATE_KEY"
         ssh-keyscan -H 157.245.152.26 >> ~/.ssh/known_hosts
 
     - name: SSH into Azure VM
       run: |
         ssh -i ~/.ssh/id_rsa root@157.245.152.26
 
-    - name: Set up SSH
+    - name: Set up SSH for Github
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
