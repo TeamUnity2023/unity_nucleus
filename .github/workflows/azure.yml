@@ -12,15 +12,18 @@ jobs:
 
     steps:
       
-      - name: Log into Azure VM & setup the VM 
+      - name: Log into Azure VM 
         run: |
           # Replace the following with your deployment script or commands & I deleted "&& systemctl restart your-app-service"
           ssh root@157.245.152.26 'cd ~/unity_nucleus/backend && git pull'
-          python3 -m pip install --upgrade pip
-          pip install virtualenv
 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Setup VM
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install virtualenv
 
       - name: Activate the Python Virutal Environment
         run: |
