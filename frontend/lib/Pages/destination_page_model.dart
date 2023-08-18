@@ -45,17 +45,23 @@ class PlanetShowcase extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 35),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: Text(
+                    Text(
                       'Visiter rating :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                    )),
-                    SizedBox(
-                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 25, 0, 15),
+                      child: StarRating(
+                        size: 35,
+                        padding: 10,
+                        rating: 3.5,
+                        color: Colors.amber,
+                      ),
                     ),
                     Expanded(
                         child: Text(
@@ -65,6 +71,13 @@ class PlanetShowcase extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     )),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 25, 0, 15),
+                      child:Text('256 Million',
+                      style: TextStyle( fontSize: 16,
+                        color: Colors.white
+                      ),),
+                    ),
                   ],
                 ),
               ),
@@ -86,12 +99,14 @@ class PlanetShowcase extends StatelessWidget {
           ),
           Align(
               alignment: Alignment.bottomCenter,
-              child: Column( mainAxisAlignment: MainAxisAlignment.end,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                   Container( padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                     height: 250,
                     width: 340,
-
                     child: const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
@@ -100,7 +115,8 @@ class PlanetShowcase extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
-                        ), textAlign: TextAlign.justify,
+                        ),
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                   ),
@@ -111,6 +127,65 @@ class PlanetShowcase extends StatelessWidget {
                 ],
               )),
         ],
+      ),
+    );
+  }
+}
+
+class StarRating extends StatelessWidget {
+  final double rating;
+  final double size;
+  final Color color;
+  final double padding;
+
+  const StarRating({
+    super.key,
+    required this.rating,
+    this.size = 30.0,
+    this.color = Colors.yellow,
+    this.padding = 5,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    int fullStars = rating.floor();
+    double remaining = rating - fullStars;
+    int halfStars = remaining >= 0.25 ? 1 : 0;
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(
+        5,
+        (index) {
+          if (index < fullStars) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding),
+              child: Icon(
+                Icons.star,
+                size: size,
+                color: color,
+              ),
+            );
+          } else if (index == fullStars && halfStars == 1) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding),
+              child: Icon(
+                Icons.star_half,
+                size: size,
+                color: color,
+              ),
+            );
+          } else {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding),
+              child: Icon(
+                Icons.star_border,
+                size: size,
+                color: color,
+              ),
+            );
+          }
+        },
       ),
     );
   }

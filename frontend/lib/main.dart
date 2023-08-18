@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body:VerificationScreen(),
+        body:PlanetShowcase(),
       ),
     );
   }
