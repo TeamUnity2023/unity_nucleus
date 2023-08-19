@@ -11,7 +11,8 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class _ProfileSettingsState extends State<ProfileSettings> {
-  DateTime selectedDate = DateTime.now(); // Declare selectedDate as non-nullable DateTime
+  DateTime selectedDate =
+      DateTime.now(); // Declare selectedDate as non-nullable DateTime
 
   String? selectedTravelPlan;
 
@@ -33,8 +34,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-               const  SizedBox(height: 40),
-              const   Align(
+                const SizedBox(height: 40),
+                const Align(
                   child: CircleAvatar(
                     radius: 100,
                     backgroundImage: AssetImage('assets/images/profile.jpg'),
@@ -42,7 +43,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  padding:const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: GlassmorphicContainer(
                     height: 500,
                     linearGradient: LinearGradient(
@@ -70,7 +71,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                       const    Text(
+                          const Text(
                             'Name :',
                             style: TextStyle(
                               color: Colors.white,
@@ -78,15 +79,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                       const   TextField(
+                          const TextField(
                             decoration: InputDecoration(
                               hintText: 'Enter your name',
-                              hintStyle: TextStyle(color: Colors.white,fontSize: 18),
+                              hintStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ),
-                            style: TextStyle(color: Colors.white,fontSize: 18),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                       const    SizedBox(height: 20),
-                      const    Text(
+                          const SizedBox(height: 20),
+                          const Text(
                             'Date of Birth :',
                             style: TextStyle(
                               color: Colors.white,
@@ -111,17 +113,18 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             child: InputDecorator(
                               decoration: const InputDecoration(
                                 hintText: 'Select date of birth',
-                                hintStyle: TextStyle(color: Colors.white
-                                ,fontSize: 18),
+                                hintStyle: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                               child: Text(
                                 selectedDate.toString().substring(0, 10),
-                                style: const TextStyle(color: Colors.white, fontSize: 18),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ),
                           ),
-                        const   SizedBox(height: 20),
-                     const      Text(
+                          const SizedBox(height: 20),
+                          const Text(
                             'Travel Type :',
                             style: TextStyle(
                               color: Colors.white,
@@ -129,19 +132,25 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          DropdownButton<String>( style:const  TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                            dropdownColor:Colors.deepPurple.withOpacity(0.9),
+                          DropdownButton<String>(
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            dropdownColor: Colors.deepPurple.withOpacity(0.9),
                             borderRadius: BorderRadius.circular(10),
 
                             iconSize: 40,
-                            items:const  [
-                              DropdownMenuItem(value: 'Economy', child: Text('Economy')),
-                              DropdownMenuItem(value: 'General', child: Text('General')),
-                              DropdownMenuItem(value: 'Luxury', child: Text('Luxury')),
-                              DropdownMenuItem(value: 'Super Luxury', child: Text('Super Luxury')),
+                            items: const [
+                              DropdownMenuItem(
+                                  value: 'Economy', child: Text('Economy')),
+                              DropdownMenuItem(
+                                  value: 'General', child: Text('General')),
+                              DropdownMenuItem(
+                                  value: 'Luxury', child: Text('Luxury')),
+                              DropdownMenuItem(
+                                  value: 'Super Luxury',
+                                  child: Text('Super Luxury')),
                             ],
                             onChanged: (String? value) {
                               // Handle dropdown value change
@@ -149,8 +158,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                 selectedTravelPlan = value;
                               });
                             },
-                            hint: const Text('Select travel type',
-                            style: TextStyle(fontSize: 18, color: Colors.white),),
+                            hint: const Text(
+                              'Select travel type',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
                             isExpanded: true,
                             value: selectedTravelPlan, // Set the selected value
                           ),
@@ -159,7 +171,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     ),
                   ),
                 ),
-              const   SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Center(
                   child: MainButton(
                     title: 'Save Changes',
@@ -169,7 +181,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     },
                   ),
                 ),
-            const    SizedBox(height: 30),
+                const SizedBox(height: 30),
               ],
             ),
           ),
