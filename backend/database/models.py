@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class Location(models.Model):
     name = models.CharField(max_length=50)
+    description = models.TextField()
     population = models.IntegerField()
     user_rating = models.FloatField()
     picture = models.ImageField(upload_to='location_pictures/')
