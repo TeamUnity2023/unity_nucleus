@@ -105,12 +105,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20), // Circular corner radius
                                     ),
-                                    backgroundColor: Color.fromRGBO(1,12, 39, 0.9),
+                                    backgroundColor: Colors.deepPurple,
                                     child: Theme(
                                       data: ThemeData.dark().copyWith(
                                         primaryColor: Colors.deepPurple,
                                         colorScheme: ColorScheme.dark().copyWith(
-                                          primary: Colors.deepPurple,
+                                          primary: Colors.black,
                                           onPrimary: Colors.white,
                                           surface: Colors.deepPurple,
                                         ),
