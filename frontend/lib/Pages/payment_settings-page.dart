@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import '../src/back_button.dart';
 import '../src/main_button.dart';
@@ -95,15 +96,19 @@ class _PaymentSettingsState extends State<PaymentSettings> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                           const Padding(
-                              padding:  EdgeInsets.only(left : 10),
+                           Padding(
+                              padding: const EdgeInsets.only(left : 10),
                               child:  TextField(
-                                decoration: InputDecoration(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly // Only numbers are allowed
+                                ],
+                                decoration: const InputDecoration(
                                   hintText: 'Enter your Card Number',
                                   hintStyle:
                                   TextStyle(color: Colors.white, fontSize: 18),
                                 ),
-                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                style:const TextStyle(color: Colors.white, fontSize: 18),
                               ),
                             ),
 
