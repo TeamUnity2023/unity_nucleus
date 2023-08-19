@@ -1,9 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics, authentication
 from django.contrib.auth import authenticate, login, logout
-from .serializers import LoginSerializer, UserRegistrationSerializer
-
+from .serializers import LoginSerializer, UserRegistrationSerializer, PersonDetailSerializer, PersonUpdateSerializer
+from .permissions import IsAuthenticated, AccessOwnAccountPermission
+from .models import Person
 
 class CustomLoginView(APIView):
     def post(self, request):
@@ -41,4 +42,17 @@ class SignUpView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class PersonRetrieveView(generics.RetrieveAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonDetailSerializer
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    permission_classes = [IsAuthenticated, AccessOwnAccountPermission]
+
+
+class PersonUpdateView(generics.UpdateAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonUpdateSerializer
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    permission_classes = [IsAuthenticated, AccessOwnAccountPermission]
 

@@ -25,3 +25,15 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return user
 
 
+class PersonDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['universal_id', 'universal_travel_id', 'name', 'date_of_birth', 'picture', 'travel_plan']
+
+
+class PersonUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['name', 'date_of_birth', 'picture', 'travel_plan']
+
+
