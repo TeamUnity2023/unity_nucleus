@@ -88,7 +88,7 @@ class _PaymentSettingsState extends State<PaymentSettings> {
 
                             const SizedBox(height: 20),
                             const Text(
-                              'Name :',
+                              'Card Number :',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 23,
@@ -99,7 +99,7 @@ class _PaymentSettingsState extends State<PaymentSettings> {
                               padding:  EdgeInsets.only(left : 10),
                               child:  TextField(
                                 decoration: InputDecoration(
-                                  hintText: 'Enter your name',
+                                  hintText: 'Enter your Card Number',
                                   hintStyle:
                                   TextStyle(color: Colors.white, fontSize: 18),
                                 ),
@@ -116,39 +116,42 @@ class _PaymentSettingsState extends State<PaymentSettings> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            DropdownButton<String>(
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                              dropdownColor: Colors.deepPurple.withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(10),
+                            Padding(
+                              padding: const EdgeInsets.only(left : 10),
+                              child: DropdownButton<String>(
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                                dropdownColor: Colors.deepPurple.withOpacity(0.9),
+                                borderRadius: BorderRadius.circular(10),
 
-                              iconSize: 40,
-                              items: const [
-                                DropdownMenuItem(
-                                    value: 'Economy', child: Text('Economy')),
-                                DropdownMenuItem(
-                                    value: 'General', child: Text('General')),
-                                DropdownMenuItem(
-                                    value: 'Luxury', child: Text('Luxury')),
-                                DropdownMenuItem(
-                                    value: 'Super Luxury',
-                                    child: Text('Super Luxury')),
-                              ],
-                              onChanged: (String? value) {
-                                // Handle dropdown value change
-                                setState(() {
-                                  selectedTravelPlan = value;
-                                });
-                              },
-                              hint: const Text(
-                                'Select travel type',
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.white),
+                                iconSize: 40,
+                                items: const [
+                                  DropdownMenuItem(
+                                      value: 'Economy', child: Text('Economy')),
+                                  DropdownMenuItem(
+                                      value: 'General', child: Text('General')),
+                                  DropdownMenuItem(
+                                      value: 'Luxury', child: Text('Luxury')),
+                                  DropdownMenuItem(
+                                      value: 'Super Luxury',
+                                      child: Text('Super Luxury')),
+                                ],
+                                onChanged: (String? value) {
+                                  // Handle dropdown value change
+                                  setState(() {
+                                    selectedTravelPlan = value;
+                                  });
+                                },
+                                hint: const Text(
+                                  'Select travel type',
+                                  style:
+                                      TextStyle(fontSize: 18, color: Colors.white),
+                                ),
+                                isExpanded: true,
+                                value: selectedTravelPlan, // Set the selected value
                               ),
-                              isExpanded: true,
-                              value: selectedTravelPlan, // Set the selected value
                             ),
                           ], // Missing closing bracket for the Column's children
                         ),
