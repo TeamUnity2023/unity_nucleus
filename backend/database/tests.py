@@ -31,8 +31,7 @@ testGetTokenApi()
 #     "universal_id": "de2ffffcdqw",
 #     "universal_travel_id": "fwerfq431441",
 #     "travel_password": "wdeqef",
-#     "first_name": "John",
-#     "last_name": "Doe",
+#     "name": "John Doe",
 #     "date_of_birth": "1990-08-19"
 # }
 #
@@ -41,3 +40,4 @@ testGetTokenApi()
 #     "universal_travel_id": "fwerfq431441",
 #     "travel_password": "wdeqef"
 # }
+

@@ -72,17 +72,15 @@ class Ticket(models.Model):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, universal_id=None, universal_travel_id=None, travel_password=None, first_name=None, last_name=None, date_of_birth=None, picture="", travel_plan=None, *args, **kwargs):
+    def create_user(self, universal_id=None, universal_travel_id=None, travel_password=None, name=None, date_of_birth=None, picture="", travel_plan=None, *args, **kwargs):
         if not universal_id:
             raise ValueError("User must have an universal_id")
         if not universal_travel_id:
             raise ValueError("User must have universal_travel_id")
         if not travel_password:
             raise ValueError("User must have a travel_password")
-        if not first_name:
-            raise ValueError("User must have a first_name")
-        if not last_name:
-            raise ValueError("User must have a last_name")
+        if not name:
+            raise ValueError("User must have a name")
         if not date_of_birth:
             raise ValueError("User must have a date_of_birth")
 
@@ -92,8 +90,7 @@ class UserManager(BaseUserManager):
         )
 
         user.set_password(travel_password)  # change password to hash
-        user.first_name = first_name
-        user.last_name = last_name
+        user.name = name
         user.date_of_birth = date_of_birth
         user.picture = picture
         user.travel_plan = travel_plan
@@ -104,9 +101,7 @@ class UserManager(BaseUserManager):
 class Person(AbstractUser):
     universal_id = models.CharField(max_length=60, primary_key=True)
     universal_travel_id = models.CharField(max_length=60, unique=True, null=False, blank=False)
-    # travel_password = models.TextField()
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40)
     date_of_birth = models.DateField()
     picture = models.ImageField(upload_to='person_pictures/', null=True, blank=True)
     travel_plan = models.ForeignKey(TravelPlan, on_delete=models.SET_NULL, null=True, blank=True)
@@ -118,7 +113,7 @@ class Person(AbstractUser):
 
     USERNAME_FIELD = 'universal_id'
     # This specifies which fields are required along with USERNAME_FIELD and password for user registration
-    REQUIRED_FIELDS = ['universal_travel_id', 'first_name', 'last_name', 'date_of_birth']
+    REQUIRED_FIELDS = ['universal_travel_id', 'name', 'date_of_birth']
 
     objects = UserManager()
 

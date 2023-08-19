@@ -16,7 +16,7 @@ class CustomLoginView(APIView):
 
             if user and user.universal_travel_id == universal_travel_id:    # If credentials are valid(match)
                 login(request, user)
-                return Response({'message': f'Welcome, {user.first_name}!'}, status=status.HTTP_200_OK)
+                return Response({'message': f'Welcome, {user.name}!'}, status=status.HTTP_200_OK)
 
             else:       # If credentials are invalid(do not match)
                 return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

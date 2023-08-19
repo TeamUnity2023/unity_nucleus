@@ -14,7 +14,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ['universal_id', 'universal_travel_id', 'travel_password', 'first_name', 'last_name', 'date_of_birth', 'is_superuser', 'is_staff', 'is_active']
+        fields = ['universal_id', 'universal_travel_id', 'travel_password', 'name', 'date_of_birth', 'is_superuser', 'is_staff', 'is_active']
 
     def create(self, validated_data):
         password = validated_data.pop('travel_password', None)

@@ -7,7 +7,7 @@ class MyUserAdmin(UserAdmin):
     model = Person
 
     fieldsets = (
-            (None, {'fields': ('universal_id','universal_travel_id','first_name','last_name','date_of_birth','picture','travel_plan','username','is_staff','is_superuser','is_active')}),
+            (None, {'fields': ('universal_id','universal_travel_id','name','date_of_birth','picture','travel_plan','username','is_staff','is_superuser','is_active')}),
     )
 
 admin.site.register(Person, MyUserAdmin)
