@@ -8,9 +8,7 @@ class ProfileSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Stack(
-
         children: [
           Image.asset(
             'assets/images/background1.jpg', // Replace with your image path
@@ -20,7 +18,8 @@ class ProfileSettings extends StatelessWidget {
             color: const Color.fromRGBO(7, 7, 15, 0.7),
             colorBlendMode: BlendMode.hardLight,
           ),
-          Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Align(
@@ -29,9 +28,6 @@ class ProfileSettings extends StatelessWidget {
                   backgroundImage: AssetImage('assets/images/profile.jpg'),
                 ),
               ),
-
-
-
 
               GlassmorphicContainer(
                 height: 500,
@@ -80,30 +76,10 @@ class ProfileSettings extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-
-
                     ],
                   ),
                 ),
               ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               // Button to edit the user's information
               Center(
