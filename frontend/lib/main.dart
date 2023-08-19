@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nucleus/Pages/booking_verification_model.dart';
+import 'package:nucleus/Pages/payment_settings-page.dart';
 import 'package:nucleus/Pages/profile_preview_page.dart';
 import 'Pages/destination_page_model.dart';
 import 'Pages/profile_settings_page.dart';
@@ -43,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // body:ProfilePreview(),
         // body: DestinationPage(),
         // body: VerificationScreen(),
-        body:ProfileSettings(),
+        // body:ProfileSettings(),
+        body: PaymentSettings(),
       ),
     );
   }
