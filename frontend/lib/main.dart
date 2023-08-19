@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nucleus/Pages/booking_verification_model.dart';
+import 'package:nucleus/Pages/profile_preview_page.dart';
 import 'Pages/destination_page_model.dart';
 
 void main() {
@@ -38,7 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body:PlanetShowcase(),
+        body:ProfilePreview(),
+        // body: DestinationPage(),
+        // body: VerificationScreen(),
       ),
     );
   }

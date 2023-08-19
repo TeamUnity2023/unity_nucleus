@@ -4,8 +4,8 @@ class MainButton extends StatefulWidget {
   final String title;
   final Color buttonColor;
   final VoidCallback whenPressed;
-
-   const MainButton({super.key, required this.title, this.buttonColor = Colors.deepPurple, required this.whenPressed});
+  final double buttonWidth;
+   const MainButton({super.key, required this.title, this.buttonColor = Colors.deepPurple,this.buttonWidth = 340.0, required this.whenPressed});
 
   @override
   State<MainButton> createState() => _MainButtonState();
@@ -44,8 +44,8 @@ class _MainButtonState extends State<MainButton> {
           widget.whenPressed();
         },
         borderRadius: BorderRadius.circular(25.0),
-        child: Container( height: 50,width: 340,
-          constraints: const BoxConstraints(minWidth: 340, minHeight: 50),
+        child: Container( height: 50,width: widget.buttonWidth,
+          constraints: const BoxConstraints(minWidth: 0, minHeight: 50),
           padding: const EdgeInsets.all(4.0),
           alignment: Alignment.center,
           child: Text(
