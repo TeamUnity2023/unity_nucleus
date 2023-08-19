@@ -49,7 +49,7 @@ class PlanetShowcase extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Visiter rating :',
+                      'Visitor rating :',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

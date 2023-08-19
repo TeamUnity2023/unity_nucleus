@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../src/back_button.dart';
 import '../src/main_button.dart';
 
 class ProfilePreview extends StatelessWidget {
@@ -18,6 +19,13 @@ class ProfilePreview extends StatelessWidget {
             height: double.infinity,
             color: const Color.fromRGBO(7, 7, 15, 0.7),
             colorBlendMode: BlendMode.hardLight,
+          ),
+          const Positioned(
+            top: 5,
+            left: 5,
+            child: CustomBackButton(
+              title: '  <  ',
+            ),
           ),
           Column( mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,

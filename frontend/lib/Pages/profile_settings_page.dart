@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import '../src/back_button.dart';
 import '../src/main_button.dart';
 
 class ProfileSettings extends StatefulWidget {
@@ -28,8 +29,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             height: double.infinity,
             color: const Color.fromRGBO(7, 7, 15, 0.7),
             colorBlendMode: BlendMode.hardLight,
+          ),  const Positioned(
+            top: 5,
+            left: 5,
+            child: CustomBackButton(
+              title: '  <  ',
+            ),
           ),
           SingleChildScrollView(
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,6 +49,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     backgroundImage: AssetImage('assets/images/profile.jpg'),
                   ),
                 ),
+
                 const SizedBox(height: 20),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -109,12 +118,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                     child: Theme(
                                       data: ThemeData.dark().copyWith(
                                         primaryColor: Colors.deepPurple,
-                                        colorScheme: ColorScheme.dark().copyWith(
+                                        colorScheme: const ColorScheme.dark().copyWith(
                                           primary: Colors.black,
                                           onPrimary: Colors.white,
                                           surface: Colors.deepPurple,
                                         ),
-                                        buttonTheme: ButtonThemeData(
+                                        buttonTheme: const ButtonThemeData(
                                           textTheme: ButtonTextTheme.primary,
                                         ),
                                       ),
