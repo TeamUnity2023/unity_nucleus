@@ -98,11 +98,40 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           ),
                           InkWell(
                             onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
+                              DateTime? pickedDate = await showDialog(
                                 context: context,
-                                initialDate: selectedDate,
-                                firstDate: DateTime(1900),
-                                lastDate: DateTime.now(),
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20), // Circular corner radius
+                                    ),
+                                    backgroundColor: Color.fromRGBO(1,12, 39, 0.9),
+                                    child: Theme(
+                                      data: ThemeData.dark().copyWith(
+                                        primaryColor: Colors.deepPurple,
+                                        colorScheme: ColorScheme.dark().copyWith(
+                                          primary: Colors.deepPurple,
+                                          onPrimary: Colors.white,
+                                          surface: Colors.deepPurple,
+                                        ),
+                                        buttonTheme: ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18.0),
+                                        child: CalendarDatePicker(
+                                          initialDate: selectedDate,
+                                          firstDate: DateTime(1900),
+                                          lastDate: DateTime.now(),
+                                          onDateChanged: (DateTime newDate) {
+                                            Navigator.of(context).pop(newDate);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                               if (pickedDate != null) {
                                 setState(() {
@@ -114,12 +143,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                               decoration: const InputDecoration(
                                 hintText: 'Select date of birth',
                                 hintStyle: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                               child: Text(
                                 selectedDate.toString().substring(0, 10),
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),
