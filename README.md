@@ -77,7 +77,7 @@ ___
 Recommended Flutter version : `3.10.6` <br>
 Recommended  Dart SDK versions : `>=3.0.6 <4.0.0`
 
-1) Assuming that you have already cloned the repositpry, Open the `frontend` directory in the flutter environment. To get the dependencies, run Following command in the terminal. (You should be in the `frontend` directory.)
+1) Assuming that you have already cloned the repository, Open the `frontend` directory in the flutter environment. To get the dependencies, run Following command in the terminal. (You should be in the `frontend` directory.)
 
      ```bash
     flutter pub get
