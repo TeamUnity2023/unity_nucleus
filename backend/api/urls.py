@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('flight/<int:pk>', views.FlightDetailView.as_view()),
     path('flight', views.FlightCreateView.as_view()),
+    path('flights', views.FlightListView.as_view()),
     path('flight-update/<int:pk>', views.FlightUpdateView.as_view()),
 
     path('ticket-status/<int:pk>', views.TicketStatusDetailView.as_view()),
@@ -33,7 +34,24 @@ urlpatterns = [
 
     path('travel-plan/<int:pk>', views.TravelPlanDetailView.as_view()),
     path('travel-plan', views.TravelPlanCreateView.as_view()),
+    path('travel-plans', views.TravelPlanListView.as_view()),
     path('travel-plan-update/<int:pk>', views.TravelPlanUpdateView.as_view()),
+
+    path('package/<int:pk>', views.PackageDetailView.as_view()),
+    path('package', views.PackageCreateView.as_view()),
+    path('packages', views.PackageListView.as_view()),
+    path('package-update/<int:pk>', views.PackageUpdateView.as_view()),
+
+    path('trip/<int:pk>', views.TripDetailView.as_view()),
+    path('trip', views.TripCreateView.as_view()),
+    path('trips', views.TripListView.as_view()),
+    path('trip-update/<int:pk>', views.TripUpdateView.as_view()),
+
+    path('ticket/<int:pk>', views.TicketDetailView.as_view()),
+    path('ticket', views.TicketCreateView.as_view()),
+    path('tickets', views.TicketListView.as_view()),
+    path('ticket-update/<int:pk>', views.TicketUpdateView.as_view()),
+
 
 ]
 

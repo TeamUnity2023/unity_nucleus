@@ -60,3 +60,37 @@ class TravelPlanSerializer(serializers.ModelSerializer):
         model = TravelPlan
         fields = '__all__'
 
+
+class PackageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Package
+        fields = '__all__'
+
+class PackageUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Package
+        fields = ['price']
+
+
+class TripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = '__all__'
+
+class TripUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = ['status']
+
+
+class TicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+
+class TicketUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ['status']
+
+

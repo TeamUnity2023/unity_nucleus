@@ -57,6 +57,10 @@ class FlightDetailView(generics.RetrieveAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
+class FlightListView(generics.ListAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+
 class FlightUpdateView(generics.UpdateAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightUpdateSerializer
@@ -109,8 +113,63 @@ class TravelPlanDetailView(generics.RetrieveAPIView):
     queryset = TravelPlan.objects.all()
     serializer_class = TravelPlanSerializer
 
+class TravelPlanListView(generics.ListAPIView):
+    queryset = TravelPlan.objects.all()
+    serializer_class = TravelPlanSerializer
+
 class TravelPlanUpdateView(generics.UpdateAPIView):
     queryset = TravelPlan.objects.all()
     serializer_class = TravelPlanSerializer
 
+
+class PackageCreateView(generics.CreateAPIView):
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
+
+class PackageDetailView(generics.RetrieveAPIView):
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
+
+class PackageListView(generics.ListAPIView):
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
+
+class PackageUpdateView(generics.UpdateAPIView):
+    queryset = Package.objects.all()
+    serializer_class = PackageUpdateSerializer
+
+
+class TripCreateView(generics.CreateAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+
+class TripDetailView(generics.RetrieveAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+
+class TripListView(generics.ListAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+
+class TripUpdateView(generics.UpdateAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripUpdateSerializer
+
+
+
+class TicketCreateView(generics.CreateAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+
+class TicketDetailView(generics.RetrieveAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+
+class TicketListView(generics.ListAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+
+class TicketUpdateView(generics.UpdateAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketUpdateSerializer
 
