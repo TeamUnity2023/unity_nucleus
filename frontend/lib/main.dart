@@ -41,11 +41,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return const SafeArea(
       child: Scaffold(
         // body: ProfilePreview(),
-        body: PlanetShowcase(),
+        // body: PlanetShowcase(),
         // body: PaymentSettings(),
         // body: VerificationScreen(),
         // body: ProfileSettings(),
-        // body: SearchPage(),
+        body: SearchPage(),
       ),
     );
   }
