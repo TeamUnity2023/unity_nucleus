@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 
-from rest_framework import generics
+from rest_framework import generics, views, status
 from database.models import *
 
 from .serializers import *
@@ -173,3 +173,36 @@ class TicketUpdateView(generics.UpdateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketUpdateSerializer
 
+
+class GetSearchResultsView(views.APIView):
+    def post(self, request):
+        try:
+            post_data = request.data
+            departure_location = post_data.get('departure_location')
+            destination_location = post_data.get('destination_location')
+            departure_date = post_data.get('departure_date')
+            travel_plan = post_data.get('travel_plan')
+            selected_trips = []
+            pending_trips = Flight.objects.filter(departure_date=departure_date, departure_location=departure_location).all()
+            for flight in pending_trips:
+                if flight.destination_location.id==destination_location:
+                    selected_trips.append([flight.id])
+            for flight in pending_trips:
+                if flight.destination_location.id != destination_location:
+                    nested_pending_trips = Flight.objects.filter(departure_location=flight.destination_location.id).all()
+                    for inner_flight in nested_pending_trips:
+                        if inner_flight.destination_location.id==destination_location:
+                            selected_trips.append([flight.id,inner_flight.id])
+            response = []
+            for trip in selected_trips:
+                trip_details = {}
+                price = 0
+                for flight_id in trip:
+                    package = Package.objects.filter(flight=flight_id, class_type=travel_plan).all()[0]
+                    price += package.price
+                trip_details["flights"] = trip
+                trip_details["price"] = price
+                response.append(trip_details)
+            return Response(response)
+        except:
+            return Response({"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)

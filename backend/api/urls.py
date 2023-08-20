@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('locations', views.LocationListView.as_view()),
     path('location', views.LocationCreateView.as_view()),
@@ -52,6 +53,6 @@ urlpatterns = [
     path('tickets', views.TicketListView.as_view()),
     path('ticket-update/<int:pk>', views.TicketUpdateView.as_view()),
 
-
+    path('search', views.GetSearchResultsView.as_view()),
 ]
 
