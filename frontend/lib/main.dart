@@ -41,9 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return const SafeArea(
       child: Scaffold(
         // body: ProfilePreview(),
-        // body: DestinationPage(),
+        body: PlanetShowcase(),
+        // body: PaymentSettings(),
         // body: VerificationScreen(),
-        body: ProfileSettings(),
+        // body: ProfileSettings(),
         // body: SearchPage(),
       ),
     );
