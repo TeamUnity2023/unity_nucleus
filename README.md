@@ -1,7 +1,19 @@
 # Nucleus 
-
+<p align="center">
+    <picture>
+      <source 
+        srcset="https://github.com/TeamUnity2023/unity_nucleus/blob/frontend/banner.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <img 
+        src="https://github.com/TeamUnity2023/unity_nucleus/blob/frontend/banner.png" 
+        alt="Academease Preview"
+        width="800"
+       />
+    </picture>
+  </p>
+  
 ## Contents
-
 - [Project Setup](#project-setup)
   - [Backend](#backend-env-setup)
   - [Frontend](#frontend-env-setup)
