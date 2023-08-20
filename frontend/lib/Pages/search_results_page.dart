@@ -34,9 +34,16 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(7, 7, 15, 1),
-      body: Column(
+    return Stack(alignment: Alignment.center, children: [
+      Image.asset(
+        'assets/images/background1.jpg', // Replace with your image path
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+        color: const Color.fromRGBO(7, 7, 15, 0.7),
+        colorBlendMode: BlendMode.hardLight,
+      ),
+      Column(
         children: [
           Container(
             padding: const EdgeInsets.only(top: 40),
@@ -65,7 +72,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           ),
         ],
       ),
-    );
+    ]);
   }
 }
 
