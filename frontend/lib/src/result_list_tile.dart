@@ -4,21 +4,26 @@ import 'package:glassmorphism/glassmorphism.dart';
 class SearchResultItem extends StatelessWidget {
   final String departureImage;
   final String destinationImage;
+  final String departurePlanetName;
+  final String destinationPlanetName;
   final String transitInfo;
 
   const SearchResultItem({super.key, 
     required this.departureImage,
     required this.destinationImage,
+    required this.departurePlanetName,
+    required this.destinationPlanetName,
     required this.transitInfo,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
       child: GlassmorphicContainer(
         width: double.infinity,
-        height: 150, // Limited height for the row
+        height: 150,
+        // Limited height for the row
         borderRadius: 20,
         linearGradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -42,11 +47,29 @@ class SearchResultItem extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Image.asset(departureImage),
+              child: Column(
+                children: [
+                  Image.asset(departureImage),
+                  const SizedBox(height: 2),
+                  Text(
+                    departurePlanetName,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Image.asset(destinationImage),
+              child: Column(
+                children: [
+                  Image.asset(destinationImage),
+                  const SizedBox(height: 2),
+                  Text(
+                    destinationPlanetName,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               flex: 4,
