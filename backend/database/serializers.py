@@ -11,16 +11,20 @@ class LoginSerializer(serializers.Serializer):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     travel_password = serializers.CharField(write_only=True)
+    admin = serializers.BooleanField(write_only=True, default=False)
 
     class Meta:
         model = Person
-        fields = ['universal_id', 'universal_travel_id', 'travel_password', 'name', 'date_of_birth', 'is_superuser', 'is_staff', 'is_active']
+        fields = ['universal_id', 'universal_travel_id', 'travel_password', 'name', 'date_of_birth', 'admin']
 
     def create(self, validated_data):
         password = validated_data.pop('travel_password', None)
+        admin = validated_data.pop('admin', False)
         user = super().create(validated_data)
         if password:
             user.set_password(password)
+            user.is_staff = admin
+            user.is_superuser = admin
             user.save()
         return user
 

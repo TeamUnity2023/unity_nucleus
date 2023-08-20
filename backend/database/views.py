@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, generics, authentication
+from rest_framework import status, generics
 from django.contrib.auth import authenticate, login, logout
 from .serializers import LoginSerializer, UserRegistrationSerializer, PersonDetailSerializer, PersonUpdateSerializer
 from .permissions import IsAuthenticated, AccessOwnAccountPermission
@@ -38,7 +38,7 @@ class SignUpView(APIView):
             user = serializer.save()
             # Login the user after successful registration
             login(request, user)
-            return Response({'message': 'SignUp successful!'}, status=status.HTTP_200_OK)
+            return Response({'message': 'SignUp successful!'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -46,13 +46,12 @@ class SignUpView(APIView):
 class PersonRetrieveView(generics.RetrieveAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonDetailSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsAuthenticated, AccessOwnAccountPermission]
 
 
 class PersonUpdateView(generics.UpdateAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonUpdateSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
     permission_classes = [IsAuthenticated, AccessOwnAccountPermission]
+
 
