@@ -40,10 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body: ProfilePreview(),
+        // body: ProfilePreview(),
         // body: DestinationPage(),
         // body: VerificationScreen(),
-        // body: ProfileSettings(),
+        body: ProfileSettings(),
         // body: SearchPage(),
       ),
     );
