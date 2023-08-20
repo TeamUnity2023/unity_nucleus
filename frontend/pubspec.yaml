@@ -36,11 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   glassmorphism: ^3.0.0
-<<<<<<< HEAD
   flutter_launcher_icons: ^0.13.1
-=======
   json_annotation: ^4.8.1
->>>>>>> 78341aa0e6f8b479e27171dceae12e54e8bd3e8e
 
 dev_dependencies:
   flutter_test:
