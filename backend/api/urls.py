@@ -54,5 +54,6 @@ urlpatterns = [
     path('ticket-update/<int:pk>', views.TicketUpdateView.as_view()),
 
     path('search', views.GetSearchResultsView.as_view()),
+    path('booking', views.BookingCreateView.as_view())
 ]
 
