@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:nucleus/Pages/search_page.dart';
+import 'package:nucleus/api/search_api.dart';
 import '../src/back_button.dart';
 import '../src/result_list_tile.dart';
 
 class SearchResultsPage extends StatefulWidget {
-  const SearchResultsPage({super.key});
+  FlightSearch flightSearch;
+
+  SearchResultsPage(this.flightSearch, {super.key});
 
   @override
   State<SearchResultsPage> createState() => _SearchResultsPageState();
 }
 
+class FlightSearchResult{
+  final String departureImage;
+  final String destinationImage;
+  final String transitInfo;
+  final String departurePlanetName;
+  final String destinationPlanetName;
+
+  FlightSearchResult({
+    required this.departureImage,
+    required this.destinationImage,
+    required this.transitInfo,
+    required this.departurePlanetName,
+    required this.destinationPlanetName,
+  });
+}
+
 class _SearchResultsPageState extends State<SearchResultsPage> {
   // Mock search results data
-  final List<Map<String, String>> searchResults = [
-    {
-      //dummy images applied
-      'departureImage': 'assets/images/earth.png',
-      //assets/images/earth.png
-      'destinationImage': 'assets/images/earth.png',
-      //assets/destination_planet_1.png
-      'transitInfo': 'Transit A',
-      'departurePlanetName': 'Planet A',
-      'destinationPlanetName': 'Planet B',
-    },
-    {
-      'departureImage': 'assets/images/earth.png',
-      'destinationImage': 'assets/images/earth.png',
-      'transitInfo': 'Transit B',
-      'departurePlanetName': 'Planet A',
-      'destinationPlanetName': 'Planet B',
-    },
-    // Add more search result items...
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +55,26 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) {
-                return SearchResultItem(
-                  departureImage: searchResults[index]['departureImage']!,
-                  destinationImage: searchResults[index]['destinationImage']!,
-                  transitInfo: searchResults[index]['transitInfo']!,
-                  departurePlanetName: searchResults[index]
-                      ['departurePlanetName']!,
-                  destinationPlanetName: searchResults[index]
-                      ['destinationPlanetName']!,
+            child: FutureBuilder(
+              future: FlightSearchApi().getSearchResults(widget.flightSearch),
+              builder: (_, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final searchResults = snapshot.data as List<FlightSearchResult>;
+                return ListView.builder(
+                  itemCount: searchResults.length,
+                  itemBuilder: (context, index) {
+                    return SearchResultItem(
+                      departureImage: searchResults[index].departureImage,
+                      destinationImage: searchResults[index].destinationImage,
+                      transitInfo: searchResults[index].transitInfo,
+                      departurePlanetName: searchResults[index].departurePlanetName,
+                      destinationPlanetName: searchResults[index].destinationPlanetName,
+                    );
+                  },
                 );
               },
             ),
@@ -74,8 +83,4 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
       ),
     ]);
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: SearchResultsPage()));
 }
