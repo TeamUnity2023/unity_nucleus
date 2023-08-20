@@ -2,7 +2,7 @@
 <p align="center">
     <picture>
       <source 
-        srcset="https://github.com/TeamUnity2023/unity_nucleus/blob/frontend/banner.png"
+        srcset="./banner.png"
         media="(prefers-color-scheme: dark)"
       />
       <img 
