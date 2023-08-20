@@ -28,11 +28,11 @@ class _SearchPageState extends State<SearchPage> {
         alignment: Alignment.center,
         children: [
           Image.asset(
-            'assets/images/background1.jpg', // Replace with your image path
+            'assets/images/background2.jpg', // Replace with your image path
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            color: const Color.fromRGBO(7, 7, 15, 0.7),
+            color: const Color.fromRGBO(7, 7, 15, 0.8),
             colorBlendMode: BlendMode.hardLight,
           ),
           const Positioned(
