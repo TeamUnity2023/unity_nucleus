@@ -122,7 +122,7 @@ Recommended  Dart SDK versions : `>=3.0.6 <4.0.0`
         * MacOS : `build/macos/Build/Products/Release/`
         * Linux : `build/linux/`
 
-         *For Web, you can run the project by running the following command :
+        * For Web, you can run the project by running the following command :
         ```bash
         flutter run -d web
         ```
