@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:nucleus/api/locations_api.dart';
 import '../models/planet.dart';
 import '../src/back_button.dart';
 import '../src/main_button.dart';
@@ -18,12 +19,12 @@ class _SearchPageState extends State<SearchPage> {
   DateTime.now(); // Declare selectedDate as non-nullable DateTime
 
   String? selectedTravelPlan;
-  // selected departure planet
-  Object? selectedDeparturePlanet;
-  // selected arrival planet
-  Object? selectedArrivalPlanet;
 
   late List<Planet> planets;
+  late List<Planet> filteredDeparturePlanets;
+  late List<Planet> filteredArrivalPlanets;
+  late Planet selectedDeparturePlanet;
+  late Planet selectedArrivalPlanet;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,10 @@ class _SearchPageState extends State<SearchPage> {
               title: '  <  ',
             ),
           ),
-          FutureBuilder(builder: (context, snapshot){
+          FutureBuilder(
+            future: LocationsApi().getLocations(),
+              builder: (context, snapshot){
+              planets = snapshot.data as List<Planet>;
             if(snapshot.connectionState == ConnectionState.done){
               return SingleChildScrollView(
                 child: Column(
@@ -97,30 +101,7 @@ class _SearchPageState extends State<SearchPage> {
                                           // open dialog that allows user to
                                           // select a planet from a list view
                                           showDialog(context: context, builder: (context){
-                                            return AlertDialog(
-                                              title: const Text('Select a planet'),
-                                              content: Container(
-                                                width: double.maxFinite,
-                                                height: double.maxFinite,
-                                                child: ListView(
-                                                  children:
-                                                  <Object>["Mercury", "Venus"].map<Widget>(
-                                                          (Object value) => GestureDetector(
-                                                        onTap: (){
-                                                          // select the planet and close the dialog
-                                                          setState(() {
-                                                            selectedDeparturePlanet = value;
-                                                          });
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        child: ListTile(
-                                                          title: Text(value as String),
-                                                        ),
-                                                      )
-                                                  ).toList(),
-                                                ),
-                                              ),
-                                            );
+                                            return buildAlertDialog(context, filteredDeparturePlanets);
                                           });
 
                                         },
@@ -158,50 +139,16 @@ class _SearchPageState extends State<SearchPage> {
                                       // open dialog that allows user to
                                       // select a planet from a list view
                                       showDialog(context: context, builder: (context){
-                                        return AlertDialog(
-                                          title: const Text('Select a planet'),
-                                          content: Container(
-                                            width: double.maxFinite,
-                                            height: double.maxFinite,
-                                            child: ListView(
-                                              children: const [
-                                                ListTile(
-                                                  title: Text('Mercury'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Venus'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Earth'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Mars'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Jupiter'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Saturn'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Uranus'),
-                                                ),
-                                                ListTile(
-                                                  title: Text('Neptune'),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
+                                        return buildAlertDialog(context, filteredArrivalPlanets);
                                       });
 
                                     },
-                                    child: const Text('Select Planet'),
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10.0),
                                       ),
                                     ),
+                                    child: const Text('Select Planet'),
                                   ),
                                 ],
                               ),
@@ -341,6 +288,30 @@ class _SearchPageState extends State<SearchPage> {
             ));
           }),
         ],
+      ),
+    );
+  }
+
+  AlertDialog buildAlertDialog(BuildContext context, List<Planet> planetList) {
+    return AlertDialog(
+      title: const Text('Select a planet'),
+      content: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        child: ListView(
+          children: planetList
+              .map<Widget>((Planet planet) => GestureDetector(
+                    onTap: () {
+                      // select the planet and close the dialog
+                      setState(() {
+                        selectedDeparturePlanet = planet;
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: ListTile(title: Text(planet.name)),
+                  ))
+              .toList(),
+        ),
       ),
     );
   }
