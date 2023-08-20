@@ -1,6 +1,7 @@
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from rest_framework import generics
+from rest_framework import status, generics
 from database.models import *
 
 from .serializers import *
@@ -173,3 +174,47 @@ class TicketUpdateView(generics.UpdateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketUpdateSerializer
 
+
+class BookingCreateView(APIView):
+    def post(self, request):
+
+        # Example request.data
+        # {
+        #     "destination_location": 1,
+        #     "departure_location": 2,
+        #     "flights": [
+        #         {
+        #             "id": 1
+        #         },
+        #         {
+        #             "id": 2
+        #         }
+        #     ]
+        # }
+        
+        
+        # Create the trip
+        trip = Trip.objects.create(
+            status = TripStatus.objects.get(pk = 1),
+            departure_location = Location.objects.get(pk = request.data.get('departure_location')),
+            destination_location = Location.objects.get(pk = request.data.get('destination_location')),
+            person = Person.objects.get(pk = request.user.universal_id)
+        )
+
+
+        for order, flight in enumerate(request.data.get('flights')):
+            # Get the flight
+            flight = Flight.objects.get(pk = flight.get('id'))
+
+            # Create a ticket for each flight
+            Ticket.objects.create(
+                status = TicketStatus.objects.get(pk = 1),
+                seat_number = 1,
+                package = Package.objects.get(pk = 1),
+                trip = trip,
+                trip_order = order,
+                ticket_number = flight.tickets.all().count() + 1,   
+                flight = flight
+            )
+
+        return Response({'message': 'Booking successful!'}, status=status.HTTP_201_CREATED)

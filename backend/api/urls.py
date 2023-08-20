@@ -52,6 +52,6 @@ urlpatterns = [
     path('tickets', views.TicketListView.as_view()),
     path('ticket-update/<int:pk>', views.TicketUpdateView.as_view()),
 
-
+    path('booking', views.BookingCreateView.as_view())
 ]
 
