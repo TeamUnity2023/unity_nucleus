@@ -51,14 +51,17 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             child: ListView.builder(
               itemCount: searchResults.length,
               itemBuilder: (context, index) {
-                return SearchResultItem(
-                  departureImage: searchResults[index]['departureImage']!,
-                  destinationImage: searchResults[index]['destinationImage']!,
-                  transitInfo: searchResults[index]['transitInfo']!,
-                  departurePlanetName: searchResults[index]
-                      ['departurePlanetName']!,
-                  destinationPlanetName: searchResults[index]
-                      ['destinationPlanetName']!,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                  child: SearchResultItem(
+                    departureImage: searchResults[index]['departureImage']!,
+                    destinationImage: searchResults[index]['destinationImage']!,
+                    transitInfo: searchResults[index]['transitInfo']!,
+                    departurePlanetName: searchResults[index]
+                        ['departurePlanetName']!,
+                    destinationPlanetName: searchResults[index]
+                        ['destinationPlanetName']!,
+                  ),
                 );
               },
             ),
@@ -69,6 +72,4 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(home: SearchResultsPage()));
-}
+
