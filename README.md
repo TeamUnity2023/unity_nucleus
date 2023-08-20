@@ -34,7 +34,7 @@ Please develop the backend in a virtual environment.
 1) First, clone the repository. 
     
     ```bash
-    git clone git@github.com:rajivaPavan/unity_nucleus.git
+    git clone https://github.com/TeamUnity2023/unity_nucleus.git
     ```
 
 2) Then run this command to activate a python environment. After that activate the environment. 
@@ -74,20 +74,7 @@ ___
 
 ### Frontend
 
-
 ___
-
-## Development
-
-Public url of the web app : `http://157.245.152.26:8000/`
-___
-
-### Branches
-
-Shall we make the main branch protected?
-___
-
-## Deploying
 
 
 
