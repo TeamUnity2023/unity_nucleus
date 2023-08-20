@@ -126,5 +126,6 @@ Recommended  Dart SDK versions : `>=3.0.6 <4.0.0`
         ```bash
         flutter run -d web
         ```
-
+### Note:
+For the app to work, both the computer in which the django server is running and the device in which the flutter app is running, should be connected to the same Wifi (LAN).
 
