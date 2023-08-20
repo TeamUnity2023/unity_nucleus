@@ -1,8 +1,8 @@
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status, generics, views
 
-from rest_framework import generics
 from database.models import *
-
 from .serializers import *
 
 
@@ -172,4 +172,96 @@ class TicketListView(generics.ListAPIView):
 class TicketUpdateView(generics.UpdateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketUpdateSerializer
+
+
+
+class GetSearchResultsView(views.APIView):
+    def post(self, request):
+
+        # Example request.data
+        # {
+        #     "departure_location": 3,
+        #     "destination_location": 5,
+        #     "departure_date": "2160-01-09",
+        #     "travel_plan": 1
+        # }
+
+
+        try:
+            post_data = request.data
+            departure_location = post_data.get('departure_location')
+            destination_location = post_data.get('destination_location')
+            departure_date = post_data.get('departure_date')
+            travel_plan = post_data.get('travel_plan')
+            selected_trips = []
+            pending_trips = Flight.objects.filter(departure_date=departure_date, departure_location=departure_location).all()
+            for flight in pending_trips:
+                if flight.destination_location.id==destination_location:
+                    selected_trips.append([flight.id])
+            for flight in pending_trips:
+                if flight.destination_location.id != destination_location:
+                    nested_pending_trips = Flight.objects.filter(departure_location=flight.destination_location.id).all()
+                    for inner_flight in nested_pending_trips:
+                        if inner_flight.destination_location.id==destination_location:
+                            selected_trips.append([flight.id,inner_flight.id])
+            response = []
+            for trip in selected_trips:
+                trip_details = {}
+                price = 0
+                for flight_id in trip:
+                    package = Package.objects.filter(flight=flight_id, class_type=travel_plan).all()[0]
+                    price += package.price
+                trip_details["flights"] = trip
+                trip_details["price"] = price
+                response.append(trip_details)
+            return Response(response)
+        except:
+            return Response({"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+
+class BookingCreateView(APIView):
+    def post(self, request):
+
+        # Example request.data
+        # {
+        #     "destination_location": 1,
+        #     "departure_location": 2,
+        #     "flights": [
+        #         {
+        #             "id": 1
+        #         },
+        #         {
+        #             "id": 2
+        #         }
+        #     ]
+        # }
+        
+        
+        # Create the trip
+        try:
+            trip = Trip.objects.create(
+                status = TripStatus.objects.get(pk = 1),
+                departure_location = Location.objects.get(pk = request.data.get('departure_location')),
+                destination_location = Location.objects.get(pk = request.data.get('destination_location')),
+                person = Person.objects.get(pk = request.user.universal_id)
+            )
+
+
+            for order, flight in enumerate(request.data.get('flights')):
+                # Get the flight
+                flight = Flight.objects.get(pk = flight.get('id'))
+
+                # Create a ticket for each flight
+                Ticket.objects.create(
+                    status = TicketStatus.objects.get(pk = 1),
+                    seat_number = 1,
+                    package = Package.objects.get(pk = 1),
+                    trip = trip,
+                    trip_order = order,
+                    ticket_number = flight.tickets.all().count() + 1,
+                    flight = flight
+                )
+            return Response({'message': 'Booking successful!'}, status=status.HTTP_201_CREATED)
+
+        except:
+            return Response({"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
