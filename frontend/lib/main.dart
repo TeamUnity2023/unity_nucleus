@@ -8,7 +8,6 @@ import 'Pages/profile_settings_page.dart';
 
 void main() {
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -37,18 +36,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        // body:ProfilePreview(),
+        body: ProfilePreview(),
         // body: DestinationPage(),
         // body: VerificationScreen(),
-        // body:ProfileSettings(),
-        body: SearchPage(),
+        // body: ProfileSettings(),
+        // body: SearchPage(),
       ),
     );
   }
-
 }
