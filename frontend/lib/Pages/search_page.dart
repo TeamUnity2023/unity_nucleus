@@ -96,44 +96,53 @@ class _SearchPageState extends State<SearchPage> {
                                       return AlertDialog(backgroundColor: Colors.deepPurple,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(20),
                                         ),
                                         title: const Padding(
                                           padding:EdgeInsets.all(15.0),
                                           child:  Text('Select a planet',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold,
-                                          ),),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
                                         ),
                                         content: SizedBox(
                                           width: double.maxFinite,
                                           height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                              .size
+                                              .height *
                                               0.4,
                                           child: ListView( scrollDirection: Axis.vertical,
                                             children: <Object>[
                                               "Mercury",
-                                              "Venus"
+                                              "Venus",
+                                              "Earth",
+                                              "Mars",
+                                              "Jupiter",
+                                              "Saturn",
+                                              "Uranus",
+                                              "Neptune",
+                                              "Pluto",
+                                              "Kepler",
+                                              "Proxima-Centauri"
                                             ]
                                                 .map<Widget>((Object value) =>
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        // select the planet and close the dialog
-                                                        setState(() {
-                                                          selectedDeparturePlanet =
-                                                              value;
-                                                        });
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: ListTile(
-                                                        title: Text(
-                                                            value as String),
-                                                      ),
-                                                    ))
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    // select the planet and close the dialog
+                                                    setState(() {
+                                                      selectedDeparturePlanet =
+                                                          value;
+                                                    });
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(
+                                                        value as String),
+                                                  ),
+                                                ))
                                                 .toList(),
                                           ),
                                         ),
@@ -182,64 +191,67 @@ class _SearchPageState extends State<SearchPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        InkWell(
-                          onTap: () async {
-                            DateTime? pickedDate = await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20), // Circular corner radius
-                                  ),
-                                  backgroundColor: Colors.deepPurple,
-                                  child: Theme(
-                                    data: ThemeData.dark().copyWith(
-                                      primaryColor: Colors.deepPurple,
-                                      colorScheme:
-                                          const ColorScheme.dark().copyWith(
-                                        primary: Colors.black,
-                                        onPrimary: Colors.white,
-                                        surface: Colors.deepPurple,
+                        Padding(
+                          padding: const EdgeInsets.only(left : 10),
+                          child: InkWell(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          20), // Circular corner radius
+                                    ),
+                                    backgroundColor: Colors.deepPurple,
+                                    child: Theme(
+                                      data: ThemeData.dark().copyWith(
+                                        primaryColor: Colors.deepPurple,
+                                        colorScheme:
+                                            const ColorScheme.dark().copyWith(
+                                          primary: Colors.black,
+                                          onPrimary: Colors.white,
+                                          surface: Colors.deepPurple,
+                                        ),
+                                        buttonTheme: const ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary,
+                                        ),
                                       ),
-                                      buttonTheme: const ButtonThemeData(
-                                        textTheme: ButtonTextTheme.primary,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18.0),
+                                        child: CalendarDatePicker(
+                                          initialDate: selectedDate,
+                                          firstDate: DateTime(2050),
+                                          lastDate: DateTime.utc(2160, 12, 31),
+                                          onDateChanged: (DateTime newDate) {
+                                            Navigator.of(context).pop(newDate);
+                                          },
+                                        ),
                                       ),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(18.0),
-                                      child: CalendarDatePicker(
-                                        initialDate: selectedDate,
-                                        firstDate: DateTime(2050),
-                                        lastDate: DateTime.utc(2160, 12, 31),
-                                        onDateChanged: (DateTime newDate) {
-                                          Navigator.of(context).pop(newDate);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                            if (pickedDate != null) {
-                              setState(() {
-                                selectedDate = pickedDate;
-                              });
-                            }
-                          },
-                          child: InputDecorator(
-                            decoration: const InputDecoration(
-                              hintText: 'Select date of Departure',
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                                  );
+                                },
+                              );
+                              if (pickedDate != null) {
+                                setState(() {
+                                  selectedDate = pickedDate;
+                                });
+                              }
+                            },
+                            child: InputDecorator(
+                              decoration: const InputDecoration(
+                                hintText: 'Select date of Departure',
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                            child: Text(
-                              selectedDate.toString().substring(0, 10),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                              child: Text(
+                                selectedDate.toString().substring(0, 10),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),
@@ -253,39 +265,42 @@ class _SearchPageState extends State<SearchPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        DropdownButton<String>(
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                          dropdownColor: Colors.deepPurple.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(10),
+                        Padding(
+                          padding: const EdgeInsets.only(left : 10),
+                          child: DropdownButton<String>(
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            dropdownColor: Colors.deepPurple.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(10),
 
-                          iconSize: 40,
-                          items: const [
-                            DropdownMenuItem(
-                                value: 'Economy', child: Text('Economy')),
-                            DropdownMenuItem(
-                                value: 'General', child: Text('General')),
-                            DropdownMenuItem(
-                                value: 'Luxury', child: Text('Luxury')),
-                            DropdownMenuItem(
-                                value: 'Super Luxury',
-                                child: Text('Super Luxury')),
-                          ],
-                          onChanged: (String? value) {
-                            // Handle dropdown value change
-                            setState(() {
-                              selectedTravelPlan = value;
-                            });
-                          },
-                          hint: const Text(
-                            'Select travel type',
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.white),
+                            iconSize: 40,
+                            items: const [
+                              DropdownMenuItem(
+                                  value: 'Economy', child: Text('Economy')),
+                              DropdownMenuItem(
+                                  value: 'General', child: Text('General')),
+                              DropdownMenuItem(
+                                  value: 'Luxury', child: Text('Luxury')),
+                              DropdownMenuItem(
+                                  value: 'Super Luxury',
+                                  child: Text('Super Luxury')),
+                            ],
+                            onChanged: (String? value) {
+                              // Handle dropdown value change
+                              setState(() {
+                                selectedTravelPlan = value;
+                              });
+                            },
+                            hint: const Text(
+                              'Select travel type',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            isExpanded: true,
+                            value: selectedTravelPlan, // Set the selected value
                           ),
-                          isExpanded: true,
-                          value: selectedTravelPlan, // Set the selected value
                         ),
                       ], // Missing closing bracket for the Column's children
                     ),
