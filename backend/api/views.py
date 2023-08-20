@@ -1,35 +1,46 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 
-from rest_framework import generics, authentication
-from database.models import Location
+from rest_framework import generics
+from database.models import Location, Spacecraft, SpacecraftStatus
 
-from .serializers import LocationSerializer
-
-
-@api_view(['GET'])
-def RESTView(request, pk=None, *args, **kwargs):
-    if request.method == 'GET':
-        data_obj = {
-            'project': 'Intergalactic Space Travelling Management System',
-            'team': 'Team Unity',
-            'message': "Hello, world. You're at the nucleus_server."
-        }
-        return Response({'data': data_obj}, status=200)
-    return Response({'message': "HTTP request type not allowed"}, status=405)
+from .serializers import LocationSerializer, LocationsSerializer, SpacecraftSerializer, SpacecraftStatusSerializer
 
 
 class LocationListView(generics.ListAPIView):
     queryset = Location.objects.all()
-    serializer_class = LocationSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    serializer_class = LocationsSerializer
 
 class LocationCreateView(generics.CreateAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
-class LocationDetailView(generics.RetrieveUpdateDestroyAPIView):
+class LocationDetailView(generics.RetrieveAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+
+class SpacecraftCreateView(generics.CreateAPIView):
+    queryset = Spacecraft.objects.all()
+    serializer_class = SpacecraftSerializer
+
+class SpacecraftDetailView(generics.RetrieveAPIView):
+    queryset = Spacecraft.objects.all()
+    serializer_class = SpacecraftSerializer
+
+class SpacecraftUpdateView(generics.UpdateAPIView):
+    queryset = Spacecraft.objects.all()
+    serializer_class = SpacecraftSerializer
+
+
+class SpacecraftStatusCreateView(generics.CreateAPIView):
+    queryset = SpacecraftStatus.objects.all()
+    serializer_class = SpacecraftStatusSerializer
+
+class SpacecraftStatusDetailView(generics.RetrieveAPIView):
+    queryset = SpacecraftStatus.objects.all()
+    serializer_class = SpacecraftStatusSerializer
+
+class SpacecraftStatusUpdateView(generics.UpdateAPIView):
+    queryset = SpacecraftStatus.objects.all()
+    serializer_class = SpacecraftStatusSerializer
+

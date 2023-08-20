@@ -17,8 +17,8 @@ class Spacecraft(models.Model):
     name = models.CharField(max_length=30)
     code = models.CharField(max_length=50)
     capacity = models.IntegerField()
-    status = models.ForeignKey(SpacecraftStatus, on_delete=models.CASCADE, related_name='spacecrafts')
-    seat_alignment = models.JSONField()
+    status = models.ForeignKey(SpacecraftStatus, on_delete=models.SET_NULL, null=True, blank=True, related_name='spacecrafts')
+    seat_alignment = models.JSONField(null=True, blank=True)
 
 class FlightStatus(models.Model):
     title = models.CharField(max_length=30)
@@ -27,8 +27,6 @@ class FlightStatus(models.Model):
 class Flight(models.Model):
     duration_hours = models.IntegerField()
     duration_minutes = models.IntegerField()
-    # basic_price is the cheapest price from all packages relevant to the flight
-    basic_price = models.FloatField()
     # available_seats must be less than capacity of the spacecraft
     available_seats = models.IntegerField()
     distance = models.FloatField()
@@ -40,7 +38,7 @@ class Flight(models.Model):
     status = models.ForeignKey(FlightStatus, on_delete=models.SET_NULL, null=True, blank=True, related_name='flights')
 
 class Package(models.Model):
-    class_type = models.IntegerField()
+    class_type = models.ForeignKey('TravelPlan', on_delete=models.CASCADE, related_name='packages')
     price = models.FloatField()
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE, related_name='packages')
 
@@ -50,7 +48,7 @@ class TripStatus(models.Model):
 
 class TravelPlan(models.Model):
     title = models.CharField(max_length=30)
-    value = models.IntegerField()
+    value = models.IntegerField(default=0)
 
 class Trip(models.Model):
     person = models.ForeignKey('Person', on_delete=models.CASCADE, related_name='trips')
@@ -73,7 +71,7 @@ class Ticket(models.Model):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, universal_id=None, universal_travel_id=None, travel_password=None, name=None, date_of_birth=None, picture="", travel_plan=None, *args, **kwargs):
+    def create_user(self, universal_id=None, universal_travel_id=None, travel_password=None, name=None, date_of_birth=None, picture="", travel_plan=None, admin=False, *args, **kwargs):
         if not universal_id:
             raise ValueError("User must have an universal_id")
         if not universal_travel_id:
@@ -95,6 +93,12 @@ class UserManager(BaseUserManager):
         user.date_of_birth = date_of_birth
         user.picture = picture
         user.travel_plan = travel_plan
+        if admin:
+            user.is_superuser = True
+            user.is_staff = True
+        else:
+            user.is_superuser = False
+            user.is_staff = False
         user.save(using=self._db)
         return user
 
@@ -108,8 +112,6 @@ class Person(AbstractUser):
     travel_plan = models.ForeignKey(TravelPlan, on_delete=models.SET_NULL, null=True, blank=True)
 
     username = models.CharField(max_length=50, unique=False, default="")
-    is_staff = models.BooleanField(default=False, editable=False)
-    is_superuser = models.BooleanField(default=False, editable=False)
     is_active = models.BooleanField(default=True, editable=False)
 
     USERNAME_FIELD = 'universal_id'
