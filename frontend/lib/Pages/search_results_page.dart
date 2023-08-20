@@ -3,7 +3,7 @@ import 'package:nucleus/src/back_button.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import '../src/result_list_tile.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchResultsPage extends StatelessWidget {
   final List<Map<String, String>> searchResults = [
     {
       'departureImage': 'assets/departure_planet_1.png',
@@ -39,5 +39,5 @@ class SearchPage extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(home: SearchPage()));
+  runApp(MaterialApp(home: SearchResultsPage()));
 }
