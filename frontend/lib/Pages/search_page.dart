@@ -170,9 +170,9 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                       const  Row(
+                         Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               'Destination :',
                               style: TextStyle(
                                 color: Colors.white,
@@ -180,7 +180,87 @@ class _SearchPageState extends State<SearchPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            ElevatedButton(
+                              onPressed: () {
+                                // open dialog that allows user to
+                                // select a planet from a list view
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(backgroundColor: Colors.deepPurple,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        title: const Padding(
+                                          padding:EdgeInsets.all(15.0),
+                                          child:  Text('Select a planet',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ),
+                                        content: SizedBox(
+                                          width: double.maxFinite,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.4,
+                                          child: ListView( scrollDirection: Axis.vertical,
+                                            children: <Object>[
+                                              "Mercury",
+                                              "Venus",
+                                              "Earth",
+                                              "Mars",
+                                              "Jupiter",
+                                              "Saturn",
+                                              "Uranus",
+                                              "Neptune",
+                                              "Pluto",
+                                              "Kepler",
+                                              "Proxima-Centauri"
+                                            ]
+                                                .map<Widget>((Object value) =>
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    // select the planet and close the dialog
+                                                    setState(() {
+                                                      selectedArrivalPlanet =
+                                                          value;
+                                                    });
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(
+                                                        value as String),
+                                                  ),
+                                                ))
+                                                .toList(),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child:  const Text('Select Planet'),
+                            ),
                           ],
+                        ),
+                        if(selectedArrivalPlanet != null) Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            selectedArrivalPlanet.toString().split(" ")[0],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 20),
                         const Text(
