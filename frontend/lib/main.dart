@@ -5,6 +5,7 @@ import 'package:nucleus/Pages/profile_preview_page.dart';
 import 'package:nucleus/Pages/search_page.dart';
 import 'Pages/destination_page_model.dart';
 import 'Pages/profile_settings_page.dart';
+import 'Pages/search_results_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,14 +39,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
         // body: ProfilePreview(),
-        // body: PlanetShowcase(),
+
+        body: SearchResultsPage(),
         // body: PaymentSettings(),
         // body: VerificationScreen(),
         // body: ProfileSettings(),
-        body: SearchPage(),
+        // body: SearchPage(),
+        // body: DestinationPage(),
+        // body: SearchResultsPage(),
+
       ),
     );
   }
