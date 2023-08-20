@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:nucleus/api/locations_api.dart';
 import '../models/planet.dart';
@@ -15,8 +14,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  DateTime selectedDate =
-  DateTime.now(); // Declare selectedDate as non-nullable DateTime
+  DateTime selectedDate = DateTime.utc(
+      2138, 01, 01); // Declare selectedDate as non-nullable DateTime
 
   String? selectedTravelPlan;
 
@@ -29,14 +28,15 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack( alignment: Alignment.center,
+      body: Stack(
+        alignment: Alignment.center,
         children: [
           Image.asset(
-            'assets/images/background1.jpg', // Replace with your image path
+            'assets/images/background2.jpg', // Replace with your image path
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            color: const Color.fromRGBO(7, 7, 15, 0.7),
+            color: const Color.fromRGBO(7, 7, 15, 0.8),
             colorBlendMode: BlendMode.hardLight,
           ),
           const Positioned(
@@ -46,247 +46,340 @@ class _SearchPageState extends State<SearchPage> {
               title: '  <  ',
             ),
           ),
-          FutureBuilder(
-            future: LocationsApi().getLocations(),
-              builder: (context, snapshot){
-              planets = snapshot.data as List<Planet>;
-            if(snapshot.connectionState == ConnectionState.done){
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: GlassmorphicContainer(
-                        height: 500,
-                        linearGradient: LinearGradient(
-                          colors: [
-                            const Color(0xFFffffff).withOpacity(0.3),
-                            const Color(0xFFFFFFFF).withOpacity(0.1),
-                          ],
-                        ),
-                        width: 340,
-                        blur: 20,
-                        border: 2,
-                        borderGradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            const Color(0xFFffffff).withOpacity(0.2),
-                            const Color(0xFFFFFFFF).withOpacity(0.2),
-                          ],
-                        ),
-                        borderRadius: 20,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 75),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Departure Planet:',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          // open dialog that allows user to
-                                          // select a planet from a list view
-                                          showDialog(context: context, builder: (context){
-                                            return buildAlertDialog(context, filteredDeparturePlanets);
-                                          });
-
-                                        },
-                                        child: const Text('Select Planet'),
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  if(selectedDeparturePlanet != null) Text(
-                                    '${selectedDeparturePlanet.toString().split(" ")[0]}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+          SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                GlassmorphicContainer(
+                  height: 500,
+                  linearGradient: LinearGradient(
+                    colors: [
+                      const Color(0xFFffffff).withOpacity(0.3),
+                      const Color(0xFFFFFFFF).withOpacity(0.1),
+                    ],
+                  ),
+                  width: 340,
+                  blur: 20,
+                  border: 2,
+                  borderGradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFFffffff).withOpacity(0.2),
+                      const Color(0xFFFFFFFF).withOpacity(0.2),
+                    ],
+                  ),
+                  borderRadius: 20,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Departure :',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
                               ),
-
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Arrival Planet:',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // open dialog that allows user to
-                                      // select a planet from a list view
-                                      showDialog(context: context, builder: (context){
-                                        return buildAlertDialog(context, filteredArrivalPlanets);
-                                      });
-
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: const Text('Select Planet'),
-                                  ),
-                                ],
-                              ),
-                              // Departure Date picker
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Departure Date:',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.bold,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                // open dialog that allows user to
+                                // select a planet from a list view
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(backgroundColor: Colors.deepPurple,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20),
                                         ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          // open dialog that allows user to
-                                          // select a date from a date picker
-                                          showDatePicker(
-                                            context: context,
-                                            initialDate: selectedDate, // Refer step 1
-                                            firstDate: DateTime(2000),
-                                            lastDate: DateTime(2025),
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return Theme(
-                                                data: ThemeData.dark().copyWith(
-                                                  colorScheme: const ColorScheme.dark(
-                                                    primary: Colors.deepPurple,
-                                                    onPrimary: Colors.white,
-                                                    surface: Colors.deepPurple,
-                                                    onSurface: Colors.white,
+                                        title: const Padding(
+                                          padding:EdgeInsets.all(15.0),
+                                          child:  Text('Select a planet',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ),
+                                        content: SizedBox(
+                                          width: double.maxFinite,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.4,
+                                          child: ListView( scrollDirection: Axis.vertical,
+                                            children: filteredDeparturePlanets
+                                                .map<Widget>((Planet value) =>
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    // select the planet and close the dialog
+                                                    setState(() {
+                                                      selectedDeparturePlanet =
+                                                          value;
+                                                    });
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(
+                                                        value as String),
                                                   ),
-                                                  dialogBackgroundColor:
-                                                  Colors.deepPurple.withOpacity(0.9),
-                                                ),
-                                                child: child!,
-                                              );
-                                            },
-                                          ).then((date) {
-                                            setState(() {
-                                              selectedDate = date!;
-                                            });
-                                          });
-                                        },
-                                        child: const Text('Select Date'),
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
+                                                ))
+                                                .toList(),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    '${selectedDate.toString().split(" ")[0]}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
+                                      );
+                                    });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Travel Type :',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left : 10),
-                                    child: DropdownButton<String>(
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                      dropdownColor: Colors.deepPurple.withOpacity(0.9),
-                                      borderRadius: BorderRadius.circular(10),
+                              child:  const Text('Select Planet'),
+                            ),
 
-                                      iconSize: 40,
-                                      items: const [
-                                        DropdownMenuItem(
-                                            value: 'Economy', child: Text('Economy')),
-                                        DropdownMenuItem(
-                                            value: 'General', child: Text('General')),
-                                        DropdownMenuItem(
-                                            value: 'Luxury', child: Text('Luxury')),
-                                        DropdownMenuItem(
-                                            value: 'Super Luxury',
-                                            child: Text('Super Luxury')),
-                                      ],
-                                      onChanged: (String? value) {
-                                        // Handle dropdown value change
-                                        setState(() {
-                                          selectedTravelPlan = value;
-                                        });
-                                      },
-                                      hint: const Text(
-                                        'Select travel type',
-                                        style:
-                                        TextStyle(fontSize: 18, color: Colors.white),
-                                      ),
-                                      isExpanded: true,
-                                      value: selectedTravelPlan, // Set the selected value
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ], // Missing closing bracket for the Column's children
+                          ],
+                        ),
+                        if(selectedDeparturePlanet != null) Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            selectedDeparturePlanet.toString().split(" ")[0],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                         Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Destination :',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                // open dialog that allows user to
+                                // select a planet from a list view
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(backgroundColor: Colors.deepPurple,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        title: const Padding(
+                                          padding:EdgeInsets.all(15.0),
+                                          child:  Text('Select a planet',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ),
+                                        content: SizedBox(
+                                          width: double.maxFinite,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.4,
+                                          child: ListView( scrollDirection: Axis.vertical,
+                                            children: filteredArrivalPlanets
+                                                .map<Widget>((Planet value) =>
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    // select the planet and close the dialog
+                                                    setState(() {
+                                                      selectedArrivalPlanet =
+                                                          value;
+                                                    });
+                                                    Navigator.of(context)
+                                                        .pop();
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(
+                                                        value as String),
+                                                  ),
+                                                ))
+                                                .toList(),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child:  const Text('Select Planet'),
+                            ),
+                          ],
+                        ),
+                        if(selectedArrivalPlanet != null) Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            selectedArrivalPlanet.toString().split(" ")[0],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Date of Departure :',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left : 10),
+                          child: InkWell(
+                            onTap: () async {
+                              DateTime? pickedDate = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          20), // Circular corner radius
+                                    ),
+                                    backgroundColor: Colors.deepPurple,
+                                    child: Theme(
+                                      data: ThemeData.dark().copyWith(
+                                        primaryColor: Colors.deepPurple,
+                                        colorScheme:
+                                            const ColorScheme.dark().copyWith(
+                                          primary: Colors.black,
+                                          onPrimary: Colors.white,
+                                          surface: Colors.deepPurple,
+                                        ),
+                                        buttonTheme: const ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18.0),
+                                        child: CalendarDatePicker(
+                                          initialDate: selectedDate,
+                                          firstDate: DateTime(2050),
+                                          lastDate: DateTime.utc(2160, 12, 31),
+                                          onDateChanged: (DateTime newDate) {
+                                            Navigator.of(context).pop(newDate);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                              if (pickedDate != null) {
+                                setState(() {
+                                  selectedDate = pickedDate;
+                                });
+                              }
+                            },
+                            child: InputDecorator(
+                              decoration: const InputDecoration(
+                                hintText: 'Select date of Departure',
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              child: Text(
+                                selectedDate.toString().substring(0, 10),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Travel Type :',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left : 10),
+                          child: DropdownButton<String>(
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            dropdownColor: Colors.deepPurple.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(10),
+
+                            iconSize: 40,
+                            items: const [
+                              DropdownMenuItem(
+                                  value: 'Economy', child: Text('Economy')),
+                              DropdownMenuItem(
+                                  value: 'General', child: Text('General')),
+                              DropdownMenuItem(
+                                  value: 'Luxury', child: Text('Luxury')),
+                              DropdownMenuItem(
+                                  value: 'Super Luxury',
+                                  child: Text('Super Luxury')),
+                            ],
+                            onChanged: (String? value) {
+                              // Handle dropdown value change
+                              setState(() {
+                                selectedTravelPlan = value;
+                              });
+                            },
+                            hint: const Text(
+                              'Select travel type',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            isExpanded: true,
+                            value: selectedTravelPlan, // Set the selected value
+                          ),
+                        ),
+                      ], // Missing closing bracket for the Column's children
                     ),
-                    const SizedBox(height: 30),
-                    MainButton(
-                      title: 'Search',
-                      buttonWidth: 250,
-                      whenPressed: () {
-                        // Add your onPressed code here!
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                  ],
+                  ),
                 ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator(
-              color: Colors.white,
-            ));
-          }),
+                const SizedBox(height: 30),
+                Center(
+                  child: MainButton(
+                    title: 'Save Changes',
+                    buttonWidth: 250,
+                    whenPressed: () {
+                      // Add your onPressed code here!
+                    },
+                  ),
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -301,15 +394,15 @@ class _SearchPageState extends State<SearchPage> {
         child: ListView(
           children: planetList
               .map<Widget>((Planet planet) => GestureDetector(
-                    onTap: () {
-                      // select the planet and close the dialog
-                      setState(() {
-                        selectedDeparturePlanet = planet;
-                      });
-                      Navigator.of(context).pop();
-                    },
-                    child: ListTile(title: Text(planet.name)),
-                  ))
+            onTap: () {
+              // select the planet and close the dialog
+              setState(() {
+                selectedDeparturePlanet = planet;
+              });
+              Navigator.of(context).pop();
+            },
+            child: ListTile(title: Text(planet.name)),
+          ))
               .toList(),
         ),
       ),

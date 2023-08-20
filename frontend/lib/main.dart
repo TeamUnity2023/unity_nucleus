@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         // body: ProfilePreview(),
+
         body: SearchResultsPage(),
         // body: PaymentSettings(),
         // body: VerificationScreen(),
@@ -49,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // body: SearchPage(),
         // body: DestinationPage(),
         // body: SearchResultsPage(),
+
       ),
     );
   }
