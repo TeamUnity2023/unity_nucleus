@@ -1,38 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:nucleus/src/back_button.dart';
-import 'package:glassmorphism/glassmorphism.dart';
+import '../src/back_button.dart';
 import '../src/result_list_tile.dart';
 
 class SearchResultsPage extends StatelessWidget {
+  // Mock search results data
   final List<Map<String, String>> searchResults = [
     {
-      'departureImage': 'assets/departure_planet_1.png',
-      'destinationImage': 'assets/destination_planet_1.png',
+      //dummy images applied
+      'departureImage': 'assets/images/earth.png', //assets/images/earth.png
+      'destinationImage': 'assets/images/earth.png', //assets/destination_planet_1.png
       'transitInfo': 'Transit A',
     },
     {
-      'departureImage': 'assets/departure_planet_2.png',
-      'destinationImage': 'assets/destination_planet_2.png',
+      'departureImage': 'assets/images/earth.png',
+      'destinationImage': 'assets/images/earth.png',
       'transitInfo': 'Transit B',
     },
-    // Add more search result items... from JSON data
+    // Add more search result items...
   ];
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Results'),
-      ),
-      body: ListView.builder(
-        itemCount: searchResults.length,
-        itemBuilder: (context, index) {
-          return SearchResultItem(
-            departureImage: searchResults[index]['departureImage']!,
-            destinationImage: searchResults[index]['destinationImage']!,
-            transitInfo: searchResults[index]['transitInfo']!,
-          );
-        },
+      backgroundColor: const Color.fromRGBO(7, 7, 15, 1),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 40),
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: CustomBackButton(
+                title: '  <  ',
+              ),
+              ),
+            ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchResults.length,
+              itemBuilder: (context, index) {
+                return SearchResultItem(
+                  departureImage: searchResults[index]['departureImage']!,
+                  destinationImage: searchResults[index]['destinationImage']!,
+                  transitInfo: searchResults[index]['transitInfo']!,
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
