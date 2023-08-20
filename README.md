@@ -74,10 +74,57 @@ ___
 
 ### Frontend
 
-___
+Recommended Flutter version : `3.10.6` <br>
+Recommended  Dart SDK versions : `>=3.0.6 <4.0.0`
 
+1) Assuming that you have already cloned the repository, Open the `frontend` directory in the flutter environment. To get the dependencies, run Following command in the terminal. (You should be in the `frontend` directory.)
 
+     ```bash
+    flutter pub get
+    ```
+     
+2) Now you have to build the app by running the relevant command.
 
+    * For Android
+    ```bash
+    flutter build apk
+    ```
 
+    * For IOS
+    ```bash
+    flutter build ios
+    ```
+
+    * For Windows
+    ```bash
+    flutter build windows
+    ```
+
+    * For MacOS
+    ```bash
+    flutter build macos
+    ```
+
+    * For Linux
+    ```bash
+    flutter build linux
+    ```
+
+     * For Web
+    ```bash
+    flutter build web
+    ```
+    
+    3) After running above commands succesfully, you will able to locate the executable in the following paths : <br>
+        * Android : `build/app/outputs/flutter-apk/`
+        * IOS : `build/ios/`
+        * Windows : `build/windows`
+        * MacOS : `build/macos/Build/Products/Release/`
+        * Linux : `build/linux/`
+
+        * For Web, you can run the project by running the following command :
+        ```bash
+        flutter run -d web
+        ```
 
 
