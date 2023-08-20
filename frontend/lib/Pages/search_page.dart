@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import '../models/Planet.dart';
+import '../models/planet.dart';
 import '../src/back_button.dart';
 import '../src/main_button.dart';
 
