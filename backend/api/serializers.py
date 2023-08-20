@@ -25,3 +25,38 @@ class SpacecraftStatusSerializer(serializers.ModelSerializer):
         model = SpacecraftStatus
         fields = '__all__'
 
+
+class FlightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = '__all__'
+
+class FlightUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = ['duration_hours', 'duration_minutes', 'available_seats', 'departure_date', 'departure_time', 'spacecraft', 'status']
+
+
+class FlightStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlightStatus
+        fields = '__all__'
+
+
+class TicketStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketStatus
+        fields = '__all__'
+
+
+class TripStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TripStatus
+        fields = '__all__'
+
+
+class TravelPlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelPlan
+        fields = '__all__'
+
