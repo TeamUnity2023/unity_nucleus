@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         // body: ProfilePreview(),
 
-        body: SearchResultsPage(),
+        body: SearchPage()
         // body: PaymentSettings(),
         // body: VerificationScreen(),
         // body: ProfileSettings(),

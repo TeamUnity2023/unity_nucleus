@@ -8,3 +8,10 @@
 
 .env
 db.sqlite3
+
+# Python virtual env related
+backend/nucleus
+
+
+# Images
+backend/media

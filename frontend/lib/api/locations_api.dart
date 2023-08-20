@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../models/planet.dart';
 
 class LocationsApi{
-  String baseUrl = 'http://localhost:8000/api';
+  String baseUrl = 'http://127.0.0.1:8000/api';
   String endpoint = '/locations';
 
   Future<List<Planet>> getLocations() async {
@@ -15,12 +16,15 @@ class LocationsApi{
       baseUrl + endpoint,
       method: 'GET',
     );
+    // convert response to list of Planet objects
+    List<dynamic> list = jsonDecode(request.response);
 
-    debugPrint(request.response);
-
-    Future.delayed(Duration(seconds: 2));
-    return [
-      Planet(id: "1", name: "Earth", image: "")
-    ];
+    // print type of list
+    List<Planet> planets = [];
+    for (var item in list){
+      debugPrint(item.toString());
+      planets.add(Planet.fromJson(item));
+    }
+    return planets;
   }
 }

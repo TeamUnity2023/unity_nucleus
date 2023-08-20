@@ -4,15 +4,15 @@ part 'planet.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Planet{
-  String id;
+  int id;
   String name;
-  String image;
+  String picture;
   String? description;
 
   Planet({
     required this.id,
     required this.name,
-    required this.image,
+    required this.picture,
     this.description,
   });
 
