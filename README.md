@@ -1,5 +1,5 @@
 # Nucleus 
-![Project Banner](https://github.com/TeamUnity2023/unity_nucleus/blob/frontend/banner.jpg?raw=true)
+![Project Banner](https://github.com/TeamUnity2023/unity_nucleus/blob/frontend/banner.png?raw=true)
 ## Contents
 
 - [Project Setup](#project-setup)
